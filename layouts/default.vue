@@ -1,8 +1,8 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer
       v-model="drawer"
-      class="mywhite"
+      class="primary"
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
@@ -25,18 +25,18 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar class="info" :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title v-text="title" />
       <v-spacer />
     </v-app-bar>
-    <v-main>
+    <v-main class="mywhite">
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
+    <v-footer class="info" :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -62,7 +62,7 @@ export default {
         },
       ],
       miniVariant: false,
-      title: 'ລະບົບຈັດການຊັບສິນ ຄວສ',
+      title: 'Asset System',
     }
   },
 }
