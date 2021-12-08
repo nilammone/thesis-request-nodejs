@@ -60,6 +60,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           mywhite: '#FFFFFF',
+          mygrey: '#797a7a',
         },
       },
     },

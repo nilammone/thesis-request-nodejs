@@ -1,8 +1,8 @@
 <template>
   <v-app>
+    <!-- menu left size -->
     <v-navigation-drawer
       v-model="drawer"
-      class="primary"
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
@@ -14,7 +14,7 @@
           :key="i"
           :to="item.to"
           router
-          exact
+          exactc
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -25,19 +25,22 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar class="info" :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar class="mywhite" :clipped-left="clipped" fixed app>
+      <!-- button menu -->
+      <v-app-bar-nav-icon class="mygrey" @click.stop="drawer = !drawer" />
 
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="title" style="color: black" />
       <v-spacer />
     </v-app-bar>
-    <v-main class="mywhite">
+    <!-- main space -->
+    <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer class="info" :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+    <!-- footer -->
+    <v-footer class="mywhite" :absolute="!fixed" app>
+      <span style="color: black">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
