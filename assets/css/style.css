@@ -1,0 +1,49 @@
+/* app font */
+#app {
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
+}
+
+/* sweetalert font */
+.swal2-content,
+.swal2-title,
+.swal2-confirm,
+.swal2-cancel {
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
+}
+
+/* for remove srollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* chevron icon navbar set color white */
+.mdi-chevron-down::before {
+  color: white;
+}
+/* database icon navbar set color white */
+.mdi-database-sync::before {
+  color: white;
+}
+
+@font-face {
+  font-family: 'NotoSerifLao-Regular';
+  src: url(~assets/fonts/NotoSerifLao-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url(~assets/fonts/Roboto-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'saysettha_ot';
+  src: url(~assets/fonts/saysettha_ot.ttf) format('truetype');
+}
+
+.mytxt {
+  color: #454444;
+}
+
+.mybgbk {
+  background-color: black;
+}

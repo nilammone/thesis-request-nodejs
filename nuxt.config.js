@@ -1,13 +1,17 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  server: {
+    host: '0.0.0.0',
+  },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  target: 'static',
   ssr: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - testing',
-    title: 'testing',
+    titleTemplate: 'Asset System',
+    title: 'asset system',
     htmlAttrs: {
       lang: 'en',
     },
@@ -21,10 +25,15 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@/assets/main.css'],
+  css: ['~/assets/css/style.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    {
+      src: '@/plugins/apex-chart.js',
+      mode: 'client',
+    },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

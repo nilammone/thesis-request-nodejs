@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-main>
+    <v-main class="mybgbk">
       <v-container>
         <Nuxt />
       </v-container>

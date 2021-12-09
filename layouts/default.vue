@@ -27,20 +27,28 @@
     </v-navigation-drawer>
     <v-app-bar class="mywhite" :clipped-left="clipped" fixed app>
       <!-- button menu -->
-      <v-app-bar-nav-icon class="mygrey" @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon class="grey--text" @click.stop="drawer = !drawer" />
 
-      <v-toolbar-title v-text="title" style="color: black" />
+      <!-- <v-toolbar-title v-text="title" /> -->
+      <v-img src="/assetlogo.png" max-height="120" max-width="220"></v-img>
       <v-spacer />
+      <v-btn icon to="#">
+        <v-icon class="grey--text">mdi-account</v-icon>
+      </v-btn>
+      <v-toolbar-title class="grey--text" v-text="username" />
+      <v-btn icon to="#">
+        <v-icon class="grey--text">mdi-logout</v-icon>
+      </v-btn>
     </v-app-bar>
     <!-- main space -->
-    <v-main>
-      <v-container>
+    <v-main class="mywhite">
+      <v-container fluid>
         <Nuxt />
       </v-container>
     </v-main>
     <!-- footer -->
     <v-footer class="mywhite" :absolute="!fixed" app>
-      <span style="color: black">&copy; {{ new Date().getFullYear() }}</span>
+      <span class="mytxt">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -66,6 +74,7 @@ export default {
       ],
       miniVariant: false,
       title: 'Asset System',
+      username: 'Nilammone',
     }
   },
 }
