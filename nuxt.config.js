@@ -68,7 +68,7 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          mywhite: '#FFFFFF',
+          mywhite: '#fafafa',
           mygrey: '#797a7a',
         },
       },

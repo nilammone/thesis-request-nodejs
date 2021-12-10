@@ -47,8 +47,8 @@
       </v-container>
     </v-main>
     <!-- footer -->
-    <v-footer class="mywhite" :absolute="!fixed" app>
-      <span class="mytxt">&copy; {{ new Date().getFullYear() }}</span>
+    <v-footer :absolute="!fixed" app>
+      <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
