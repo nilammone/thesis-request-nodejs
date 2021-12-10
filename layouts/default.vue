@@ -9,6 +9,30 @@
       app
     >
       <v-list>
+        <v-list-item to="/" router exactc>
+          <v-list-item-action>
+            <v-icon> mdi-home </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ຫນ້າຫລັກ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-list>
+        <v-list-item to="#" router exactc>
+          <v-list-item-action>
+            <v-icon> mdi-cog-outline </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ບໍລິຫານຈັດການ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <hr />
+
+      <v-list>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -21,6 +45,56 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-list>
+        <v-list-item to="#" router exactc>
+          <v-list-item-action>
+            <v-icon> mdi-chart-areaspline </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ລາຍງານ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <hr />
+
+      <v-list>
+        <v-list-item
+          v-for="(itemrp, j) in itemrps"
+          :key="j"
+          :to="itemrp.to"
+          router
+          exactc
+        >
+          <v-list-item-action>
+            <v-icon>{{ itemrp.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="itemrp.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list>
+        <v-list-item to="#" router exactc>
+          <v-list-item-action>
+            <v-icon> mdi-lock-reset </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ປ່ຽນລະຫັດ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list>
+        <v-list-item to="#" router exactc>
+          <v-list-item-action>
+            <v-icon> mdi-logout </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -62,16 +136,55 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
+          icon: '',
+          title: 'ຂໍ້ມູນຜູ້ໃຊ້',
+          to: '/inspire',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
+          icon: '',
+          title: 'ຂໍ້ມູນພະນັກງານ',
+          to: '/inspire',
+        },
+        {
+          icon: '',
+          title: 'ຂໍ້ມູນພະແນກ',
+          to: '/inspire',
+        },
+        {
+          icon: '',
+          title: 'ຂໍ້ມູນຊັບສິນ',
           to: '/inspire',
         },
       ],
+
+      itemrps: [
+        {
+          icon: '',
+          title: 'ຊັບສິນທັງຫມົດ',
+          to: '/test',
+        },
+        {
+          icon: '',
+          title: 'ອຸປະກອນຕ່າງໆ',
+          to: '/inspire',
+        },
+        {
+          icon: '',
+          title: 'ຫ້ອງ',
+          to: '/inspire',
+        },
+        {
+          icon: '',
+          title: 'ອາຄານ',
+          to: '/inspire',
+        },
+        {
+          icon: '',
+          title: 'ຜູ້ສະຫນອງ',
+          to: '/inspire',
+        },
+      ],
+
       miniVariant: false,
       title: 'Asset System',
       username: 'Nilammone',

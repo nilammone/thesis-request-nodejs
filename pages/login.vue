@@ -3,11 +3,19 @@
     <div class="limiter">
       <div class="container-login100">
         <div class="wrap-login100">
-          <div
+          <!-- <div
             class="login100-form-title"
             style="background-image: url(bg-01.jpg)"
-          >
-            <span class="login100-form-title-1"> Login Asset Sys </span>
+          > -->
+          <!-- <span class="login100-form-title-1"> Login Asset Sys </span> -->
+          <!-- </div> -->
+          <div style="margin-top: 30px">
+            <v-img
+              src="/assetlogo.png"
+              max-height="320"
+              max-width="420"
+              style="display: block; margin-left: auto; margin-right: auto"
+            ></v-img>
           </div>
 
           <form class="login100-form validate-form">
