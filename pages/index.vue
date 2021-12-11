@@ -12,9 +12,14 @@
               height="200px"
             ></v-img>
 
-            <v-card-title> ຈຳນວນຊັບສິນທັງຫມົດ </v-card-title>
-
-            <v-card-subtitle> 1,000 </v-card-subtitle>
+            <v-row align="center" justify="end">
+              <v-col md="8"
+                ><v-card-title class="myft10" align="right">
+                  ຈຳນວນຊັບສິນທັງຫມົດ
+                </v-card-title></v-col
+              >
+              <v-col md="4"><v-card-subtitle> 1,000 </v-card-subtitle></v-col>
+            </v-row>
           </v-card>
         </v-col>
         <v-col md="3">
@@ -24,9 +29,14 @@
               height="200px"
             ></v-img>
 
-            <v-card-title> ຈຳນວນອາຄານທັງຫມົດ </v-card-title>
-
-            <v-card-subtitle> 10 </v-card-subtitle>
+            <v-row align="center" justify="end">
+              <v-col md="8"
+                ><v-card-title class="myft10" align="right">
+                  ຈຳນວນອາຄານທັງຫມົດ
+                </v-card-title></v-col
+              >
+              <v-col md="4"><v-card-subtitle> 10 </v-card-subtitle></v-col>
+            </v-row>
           </v-card>
         </v-col>
         <v-col md="3">
@@ -36,9 +46,14 @@
               height="200px"
             ></v-img>
 
-            <v-card-title> ຈຳນວນຫ້ອງຣຽນທັງຫມົດ </v-card-title>
-
-            <v-card-subtitle> 200 </v-card-subtitle>
+            <v-row align="center" justify="end">
+              <v-col md="8"
+                ><v-card-title class="myft10" align="right">
+                  ຈຳນວນຫ້ອງຣຽນທັງຫມົດ
+                </v-card-title></v-col
+              >
+              <v-col md="4"><v-card-subtitle> 200 </v-card-subtitle></v-col>
+            </v-row>
           </v-card>
         </v-col>
         <v-col md="3">
@@ -48,9 +63,14 @@
               height="200px"
             ></v-img>
 
-            <v-card-title> ຈຳນວນຜູ້ສະຫນອງທັງຫມົດ </v-card-title>
-
-            <v-card-subtitle> 10 </v-card-subtitle>
+            <v-row align="center" justify="end">
+              <v-col md="8"
+                ><v-card-title class="myft10" align="right">
+                  ຈຳນວນຜູ້ສະຫນອງທັງຫມົດ
+                </v-card-title></v-col
+              >
+              <v-col md="4"><v-card-subtitle> 10 </v-card-subtitle></v-col>
+            </v-row>
           </v-card>
         </v-col>
       </v-row>
@@ -136,5 +156,9 @@ export default {
 <style scoped>
 .chbg {
   background-color: white;
+}
+
+.myft10 {
+  font-size: 1em;
 }
 </style>

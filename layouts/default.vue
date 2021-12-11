@@ -120,10 +120,10 @@
       </nuxt-link>
       <v-spacer />
       <v-text-field
-        class="mt-7 d-none d-md-flex"
+        class="mt-7 d-none d-md-flex shrink"
         outlined
+        dense
         label="ຄົ້ນຫາ"
-        style="width: 0"
         prepend-inner-icon="mdi-magnify"
         rounded
       ></v-text-field>
@@ -202,7 +202,7 @@ export default {
         {
           icon: '',
           title: 'ລາຍງານລວມ',
-          to: '/test',
+          to: '/reportAll',
         },
         {
           icon: '',
@@ -218,3 +218,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.myresizebt {
+  width: 20px;
+}
+</style>
