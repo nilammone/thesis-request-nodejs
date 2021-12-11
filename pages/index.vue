@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3">
-    <h3 class="mytxt">ພາບລວມຈຳນວນຊັບສິນທັງຫມົດ</h3>
+    <h3 class="mytxt">ພາບລວມຂໍ້ມູນຊັບສິນທັງຫມົດ</h3>
     <hr />
 
     <div class="mt-5">
