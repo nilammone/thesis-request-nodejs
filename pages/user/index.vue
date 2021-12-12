@@ -12,7 +12,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Employee</v-toolbar-title>
+          <v-toolbar-title>User</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <!-- s search -->
@@ -47,29 +47,36 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.username"
                         label="username
               "
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.email"
                         label="email"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.password"
+                        type="password"
                         label="password"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.employeeid"
                         label="employeeid"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.status"
+                        label="status"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -87,16 +94,14 @@
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5"
-                >Are you sure you want to delete this item?</v-card-title
-              >
+              <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
-                >
                 <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
+                  >ຕົກລົງ</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >ຍົກເລີກ</v-btn
                 >
                 <v-spacer></v-spacer>
               </v-card-actions>
@@ -142,6 +147,7 @@ export default {
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Password', value: 'password', align: 'center' },
         { text: 'Employee_id', value: 'employeeid', align: 'center' },
+        { text: 'Status', value: 'status', align: 'center' },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
@@ -151,19 +157,21 @@ export default {
         email: '',
         password: '',
         employeeid: 0,
+        status: '',
       },
       defaultItem: {
         username: '',
         email: '',
         password: '',
         employeeid: 0,
+        status: '',
       },
     }
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'Add new' : 'Edit'
     },
   },
 
@@ -189,6 +197,7 @@ export default {
           email: 'user01@example.com',
           password: '-',
           employeeid: 100,
+          status: 'isAdmin',
         },
         {
           id: 20,
@@ -196,6 +205,7 @@ export default {
           email: 'user02@example.com',
           password: '-',
           employeeid: 200,
+          status: 'inputer',
         },
         {
           id: 30,
@@ -203,6 +213,7 @@ export default {
           email: 'user03@example.com',
           password: '-',
           employeeid: 300,
+          status: 'inputer',
         },
         {
           id: 40,
@@ -210,6 +221,7 @@ export default {
           email: 'user04@example.com',
           password: '-',
           employeeid: 400,
+          status: 'inputer',
         },
         {
           id: 50,
@@ -217,6 +229,7 @@ export default {
           email: 'user05@example.com',
           password: '-',
           employeeid: 500,
+          status: 'inputer',
         },
         {
           id: 60,
@@ -224,6 +237,7 @@ export default {
           email: 'user06@example.com',
           password: '-',
           employeeid: 600,
+          status: 'inputer',
         },
         {
           id: 70,
@@ -231,6 +245,7 @@ export default {
           email: 'user07@example.com',
           password: '-',
           employeeid: 700,
+          status: 'inputer',
         },
         {
           id: 80,
@@ -238,6 +253,7 @@ export default {
           email: 'user08@example.com',
           password: '-',
           employeeid: 800,
+          status: 'inputer',
         },
         {
           id: 90,
@@ -245,6 +261,7 @@ export default {
           email: 'user09@example.com',
           password: '-',
           employeeid: 900,
+          status: 'inputer',
         },
         {
           id: 95,
@@ -252,6 +269,7 @@ export default {
           email: 'user10@example.com',
           password: '-',
           employeeid: 1100,
+          status: 'inputer',
         },
         {
           id: 97,
@@ -259,6 +277,7 @@ export default {
           email: 'user11@example.com',
           password: '-',
           employeeid: 1200,
+          status: 'inputer',
         },
         {
           id: 100,
@@ -266,6 +285,7 @@ export default {
           email: 'user12@example.com',
           password: '-',
           employeeid: 1300,
+          status: 'inputer',
         },
       ]
     },

@@ -55,6 +55,64 @@
         </v-list-item>
       </v-list>
 
+      <v-list-group prepend-icon="icon-icon_fee" no-action>
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title style="color: white">
+              ຂໍ້ມູນຊັບສິນ
+            </v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item to="/1">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ຊັບສິນ
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/2">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ຫມວດຊັບສິນ
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/3">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ປະເພດຊັບສິນ
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/4">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ອາຄານ
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/5">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ປະເພດອາຄານ
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/6">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ຫ້ອງ
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/7">
+          <v-list-item-title style="color: white; font-size: 0.8em">
+            ປະເພດຫ້ອງ
+          </v-list-item-title>
+        </v-list-item>
+      </v-list-group>
+
+      <v-list>
+        <v-list-item to="/8" router exactc>
+          <v-list-item-action>
+            <v-icon color="white"></v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title style="color: white"
+              >ຂໍ້ມູນຜູ້ສະຫນອງ</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
       <v-list>
         <v-list-item router exactc>
           <v-list-item-action>
@@ -88,7 +146,7 @@
         </v-list-item>
       </v-list>
       <v-list>
-        <v-list-item to="#" router exactc>
+        <v-list-item to="/changepassw" router exactc>
           <v-list-item-action>
             <v-icon color="white"> mdi-lock-reset </v-icon>
           </v-list-item-action>
@@ -100,7 +158,7 @@
         </v-list-item>
       </v-list>
       <v-list>
-        <v-list-item to="#" router exactc>
+        <v-list-item to="/logout" router exactc>
           <v-list-item-action>
             <v-icon color="white"> mdi-logout </v-icon>
           </v-list-item-action>
@@ -169,32 +227,7 @@ export default {
         {
           icon: '',
           title: 'ຂໍ້ມູນພະແນກ',
-          to: '/inspire',
-        },
-        {
-          icon: '',
-          title: 'ຂໍ້ມູນຊັບສິນ',
-          to: '/inspire',
-        },
-        {
-          icon: '',
-          title: 'ຂໍ້ມູນອາຄານ',
-          to: '/inspire',
-        },
-        {
-          icon: '',
-          title: 'ຂໍ້ມູນຫ້ອງ',
-          to: '/inspire',
-        },
-        {
-          icon: '',
-          title: 'ຂໍ້ມູນຫມວດຊັບສິນ',
-          to: '/inspire',
-        },
-        {
-          icon: '',
-          title: 'ຂໍ້ມູນຜູ້ສະຫນອງ',
-          to: '/inspire',
+          to: '/department',
         },
       ],
 
@@ -207,7 +240,7 @@ export default {
         {
           icon: '',
           title: 'ລາຍງານຍ່ອຍ',
-          to: '/inspire',
+          to: '/reportSub',
         },
       ],
 

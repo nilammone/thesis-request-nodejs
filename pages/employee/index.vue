@@ -47,29 +47,41 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.username"
-                        label="username
+                        v-model="editedItem.firstname"
+                        label="firstname
               "
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.email"
-                        label="email"
+                        v-model="editedItem.lastname"
+                        label="lastname"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.password"
-                        label="password"
+                        v-model="editedItem.deptid"
+                        label="deptid"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.employeeid"
-                        label="employeeid"
+                        v-model="editedItem.contact"
+                        label="contact"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.address"
+                        label="address"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.image"
+                        label="image"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -87,16 +99,14 @@
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5"
-                >Are you sure you want to delete this item?</v-card-title
-              >
+              <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
-                >
                 <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
+                  >ຕົກລົງ</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >ຍົກເລີກ</v-btn
                 >
                 <v-spacer></v-spacer>
               </v-card-actions>
@@ -138,32 +148,38 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Username', value: 'username', align: 'center' },
-        { text: 'Email', value: 'email', align: 'center' },
-        { text: 'Password', value: 'password', align: 'center' },
-        { text: 'Employee_id', value: 'employeeid', align: 'center' },
+        { text: 'Firstname', value: 'firstname', align: 'center' },
+        { text: 'Lastname', value: 'lastname', align: 'center' },
+        { text: 'Dept_id', value: 'deptid', align: 'center' },
+        { text: 'Contact', value: 'contact', align: 'center' },
+        { text: 'Address', value: 'address', align: 'center' },
+        { text: 'Image', value: 'image', align: 'center' },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        username: '',
-        email: '',
-        password: '',
-        employeeid: 0,
+        firstname: '',
+        lastname: '',
+        deptid: 0,
+        contact: '',
+        address: '',
+        image: '',
       },
       defaultItem: {
-        username: '',
-        email: '',
-        password: '',
-        employeeid: 0,
+        firstname: '',
+        lastname: '',
+        deptid: 0,
+        contact: '',
+        address: '',
+        image: '',
       },
     }
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'Add new' : 'Edit'
     },
   },
 
@@ -185,87 +201,111 @@ export default {
       this.desserts = [
         {
           id: 10,
-          username: 'user01',
-          email: 'user01@example.com',
-          password: '-',
-          employeeid: 100,
+          firstname: 'Chantha',
+          lastname: 'mono',
+          deptid: 1,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/01.png',
         },
         {
           id: 20,
-          username: 'user02',
-          email: 'user02@example.com',
-          password: '-',
-          employeeid: 200,
+          firstname: 'Chantha2',
+          lastname: 'mono2',
+          deptid: 12,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/012.png',
         },
         {
           id: 30,
-          username: 'user03',
-          email: 'user03@example.com',
-          password: '-',
-          employeeid: 300,
+          firstname: 'Chantha3',
+          lastname: 'mono3',
+          deptid: 13,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/013.png',
         },
         {
           id: 40,
-          username: 'user04',
-          email: 'user04@example.com',
-          password: '-',
-          employeeid: 400,
+          firstname: 'Chantha4',
+          lastname: 'mono4',
+          deptid: 14,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/014.png',
         },
         {
           id: 50,
-          username: 'user05',
-          email: 'user05@example.com',
-          password: '-',
-          employeeid: 500,
+          firstname: 'Chantha5',
+          lastname: 'mono5',
+          deptid: 15,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/015.png',
         },
         {
           id: 60,
-          username: 'user06',
-          email: 'user06@example.com',
-          password: '-',
-          employeeid: 600,
+          firstname: 'Chantha7',
+          lastname: 'mono7',
+          deptid: 17,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/017.png',
         },
         {
           id: 70,
-          username: 'user07',
-          email: 'user07@example.com',
-          password: '-',
-          employeeid: 700,
+          firstname: 'Chantha8',
+          lastname: 'mono8',
+          deptid: 18,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/018.png',
         },
         {
           id: 80,
-          username: 'user08',
-          email: 'user08@example.com',
-          password: '-',
-          employeeid: 800,
+          firstname: 'Chantha9',
+          lastname: 'mono9',
+          deptid: 19,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/019.png',
         },
         {
           id: 90,
-          username: 'user09',
-          email: 'user09@example.com',
-          password: '-',
-          employeeid: 900,
+          firstname: 'Chantha10',
+          lastname: 'mono10',
+          deptid: 110,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/0110.png',
         },
         {
           id: 95,
-          username: 'user10',
-          email: 'user10@example.com',
-          password: '-',
-          employeeid: 1100,
+          firstname: 'Chantha11',
+          lastname: 'mono11',
+          deptid: 111,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/0111.png',
         },
         {
           id: 97,
-          username: 'user11',
-          email: 'user11@example.com',
-          password: '-',
-          employeeid: 1200,
+          firstname: 'Chantha12',
+          lastname: 'mono12',
+          deptid: 112,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/0112.png',
         },
         {
           id: 100,
-          username: 'user12',
-          email: 'user12@example.com',
-          password: '-',
-          employeeid: 1300,
+          firstname: 'Chantha13',
+          lastname: 'mono13',
+          deptid: 113,
+          contact: '020 55556666',
+          address: 'Vientiane',
+          image: '/0113.png',
         },
       ]
     },
