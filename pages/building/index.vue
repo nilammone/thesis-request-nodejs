@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນພະແນກ</h3>
+    <h3 class="mytxt">ຂໍ້ມູນອາຄານ</h3>
     <hr />
 
     <v-data-table
@@ -12,7 +12,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Department</v-toolbar-title>
+          <v-toolbar-title>Building</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <!-- s search -->
@@ -49,15 +49,27 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptid"
-                        label="Dept_id
+                        v-model="editedItem.buildingid"
+                        label="Building_id
               "
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptname"
-                        label="Dept_name"
+                        v-model="editedItem.buildingno"
+                        label="Building_no"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.buildingtypeid"
+                        label="Building_typeid"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.buildingstatus"
+                        label="Building_status"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -124,19 +136,37 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Dept_id', value: 'deptid', align: 'center' },
-        { text: 'Dept_name', value: 'deptname', align: 'center' },
+        { text: 'Building_id', value: 'buildingid', align: 'center' },
+        {
+          text: 'Building_no',
+          value: 'buildingno',
+          align: 'center',
+        },
+        {
+          text: 'Building_typeid',
+          value: 'buildingtypeid',
+          align: 'center',
+        },
+        {
+          text: 'Building_status',
+          value: 'buildingstatus',
+          align: 'center',
+        },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        deptid: '',
-        deptname: '',
+        buildingid: 0,
+        buildingno: '',
+        buildingtypeid: '',
+        buildingstatus: '',
       },
       defaultItem: {
-        deptid: '',
-        deptname: '',
+        buildingid: 0,
+        buildingno: '',
+        buildingtypeid: '',
+        buildingstatus: '',
       },
     }
   },
@@ -165,63 +195,38 @@ export default {
       this.desserts = [
         {
           id: 10,
-          deptid: '100',
-          deptname: 'Depart1',
+          buildingid: 1,
+          buildingno: 'AC01',
+          buildingtypeid: 1,
+          buildingstatus: 'Y',
         },
         {
           id: 20,
-          deptid: '200',
-          deptname: 'Depart2',
+          buildingid: 2,
+          buildingno: 'AC02',
+          buildingtypeid: 1,
+          buildingstatus: 'Y',
         },
         {
           id: 30,
-          deptid: '300',
-          deptname: 'Depart3',
+          buildingid: 3,
+          buildingno: 'AC03',
+          buildingtypeid: 2,
+          buildingstatus: 'Y',
         },
         {
           id: 40,
-          deptid: '400',
-          deptname: 'Depart4',
+          buildingid: 4,
+          buildingno: 'AC04',
+          buildingtypeid: 2,
+          buildingstatus: 'Y',
         },
         {
           id: 50,
-          deptid: '500',
-          deptname: 'Depart5',
-        },
-        {
-          id: 60,
-          deptid: '600',
-          deptname: 'Depart6',
-        },
-        {
-          id: 70,
-          deptid: '700',
-          deptname: 'Depart7',
-        },
-        {
-          id: 80,
-          deptid: '800',
-          deptname: 'Depart8',
-        },
-        {
-          id: 90,
-          deptid: '900',
-          deptname: 'Depart9',
-        },
-        {
-          id: 95,
-          deptid: '1000',
-          deptname: 'Depart10',
-        },
-        {
-          id: 97,
-          deptid: '1100',
-          deptname: 'Depart11',
-        },
-        {
-          id: 100,
-          deptid: '1200',
-          deptname: 'Depart12',
+          buildingid: 5,
+          buildingno: 'AC05',
+          buildingtypeid: 3,
+          buildingstatus: 'Y',
         },
       ]
     },

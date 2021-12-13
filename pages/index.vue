@@ -7,10 +7,7 @@
       <v-row>
         <v-col md="3">
           <v-card class="mx-auto" max-width="100%">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170__340.jpg"
-              height="200px"
-            ></v-img>
+            <v-img src="/allasset.webp" height="200px"></v-img>
 
             <v-row align="center" justify="end">
               <v-col md="8"
@@ -24,10 +21,7 @@
         </v-col>
         <v-col md="3">
           <v-card class="mx-auto" max-width="100%">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2019/05/29/00/43/johns-hopkins-university-4236470__340.jpg"
-              height="200px"
-            ></v-img>
+            <v-img src="/house.webp" height="200px"></v-img>
 
             <v-row align="center" justify="end">
               <v-col md="8"
@@ -41,10 +35,7 @@
         </v-col>
         <v-col md="3">
           <v-card class="mx-auto" max-width="100%">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2012/09/10/05/10/steinbach-56641__340.jpg"
-              height="200px"
-            ></v-img>
+            <v-img src="/room.webp" height="200px"></v-img>
 
             <v-row align="center" justify="end">
               <v-col md="8"
@@ -58,10 +49,7 @@
         </v-col>
         <v-col md="3">
           <v-card class="mx-auto" max-width="100%">
-            <v-img
-              src="https://cdn.pixabay.com/photo/2020/11/23/03/56/handshake-5768632__340.jpg"
-              height="200px"
-            ></v-img>
+            <v-img src="vendor.webp" height="200px"></v-img>
 
             <v-row align="center" justify="end">
               <v-col md="8"

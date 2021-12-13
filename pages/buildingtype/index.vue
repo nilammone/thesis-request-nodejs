@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນພະແນກ</h3>
+    <h3 class="mytxt">ຂໍ້ມູນປະເພດອາຄານ</h3>
     <hr />
 
     <v-data-table
@@ -12,7 +12,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Department</v-toolbar-title>
+          <v-toolbar-title>Type Building</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <!-- s search -->
@@ -49,15 +49,15 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptid"
-                        label="Dept_id
+                        v-model="editedItem.buildingtypeid"
+                        label="Building_type_id
               "
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptname"
-                        label="Dept_name"
+                        v-model="editedItem.buildingtypename"
+                        label="Building_type_name"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -124,19 +124,24 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Dept_id', value: 'deptid', align: 'center' },
-        { text: 'Dept_name', value: 'deptname', align: 'center' },
+        { text: 'Building_type_id', value: 'buildingtypeid', align: 'center' },
+        {
+          text: 'Building_type_name',
+          value: 'buildingtypename',
+          align: 'center',
+        },
+
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        deptid: '',
-        deptname: '',
+        buildingtypeid: 0,
+        buildingtypename: '',
       },
       defaultItem: {
-        deptid: '',
-        deptname: '',
+        buildingtypeid: 0,
+        buildingtypename: '',
       },
     }
   },
@@ -165,63 +170,28 @@ export default {
       this.desserts = [
         {
           id: 10,
-          deptid: '100',
-          deptname: 'Depart1',
+          buildingtypeid: 1,
+          buildingtypename: 'build01',
         },
         {
           id: 20,
-          deptid: '200',
-          deptname: 'Depart2',
+          buildingtypeid: 2,
+          buildingtypename: 'build02',
         },
         {
           id: 30,
-          deptid: '300',
-          deptname: 'Depart3',
+          buildingtypeid: 3,
+          buildingtypename: 'build03',
         },
         {
           id: 40,
-          deptid: '400',
-          deptname: 'Depart4',
+          buildingtypeid: 4,
+          buildingtypename: 'build04',
         },
         {
           id: 50,
-          deptid: '500',
-          deptname: 'Depart5',
-        },
-        {
-          id: 60,
-          deptid: '600',
-          deptname: 'Depart6',
-        },
-        {
-          id: 70,
-          deptid: '700',
-          deptname: 'Depart7',
-        },
-        {
-          id: 80,
-          deptid: '800',
-          deptname: 'Depart8',
-        },
-        {
-          id: 90,
-          deptid: '900',
-          deptname: 'Depart9',
-        },
-        {
-          id: 95,
-          deptid: '1000',
-          deptname: 'Depart10',
-        },
-        {
-          id: 97,
-          deptid: '1100',
-          deptname: 'Depart11',
-        },
-        {
-          id: 100,
-          deptid: '1200',
-          deptname: 'Depart12',
+          buildingtypeid: 5,
+          buildingtypename: 'build05',
         },
       ]
     },

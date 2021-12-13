@@ -68,22 +68,22 @@
             ຊັບສິນ
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/2">
+        <v-list-item to="/groupass">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ຫມວດຊັບສິນ
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/3">
+        <v-list-item to="/typeass">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ປະເພດຊັບສິນ
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/4">
+        <v-list-item to="/building">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ອາຄານ
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/5">
+        <v-list-item to="/buildingtype">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ປະເພດອາຄານ
           </v-list-item-title>

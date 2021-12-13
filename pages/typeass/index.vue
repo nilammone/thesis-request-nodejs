@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນພະແນກ</h3>
+    <h3 class="mytxt">ຂໍ້ມູນປະເພດຊັບສິນ</h3>
     <hr />
 
     <v-data-table
@@ -12,7 +12,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Department</v-toolbar-title>
+          <v-toolbar-title>Type Asset</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <!-- s search -->
@@ -49,15 +49,27 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptid"
-                        label="Dept_id
+                        v-model="editedItem.typeassetid"
+                        label="Type_asset_id
               "
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptname"
-                        label="Dept_name"
+                        v-model="editedItem.typeassetname"
+                        label="Type_asset_name"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.typeassetgroupid"
+                        label="Type_asset_groupid"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.typeassetstatus"
+                        label="Type_asset_status"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -124,19 +136,33 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Dept_id', value: 'deptid', align: 'center' },
-        { text: 'Dept_name', value: 'deptname', align: 'center' },
+        { text: 'Type_asset_id', value: 'typeassetid', align: 'center' },
+        { text: 'Type_asset_name', value: 'typeassetname', align: 'center' },
+        {
+          text: 'Type_asset_groupid',
+          value: 'typeassetgroupid',
+          align: 'center',
+        },
+        {
+          text: 'Type_asset_status',
+          value: 'typeassetstatus',
+          align: 'center',
+        },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        deptid: '',
-        deptname: '',
+        typeassetid: 0,
+        typeassetname: '',
+        typeassetgroupid: 0,
+        typeassetstatus: '',
       },
       defaultItem: {
-        deptid: '',
-        deptname: '',
+        typeassetid: 0,
+        typeassetname: '',
+        typeassetgroupid: 0,
+        typeassetstatus: '',
       },
     }
   },
@@ -165,63 +191,38 @@ export default {
       this.desserts = [
         {
           id: 10,
-          deptid: '100',
-          deptname: 'Depart1',
+          typeassetid: 1,
+          typeassetname: 'Table01',
+          typeassetgroupid: 100,
+          typeassetstatus: 'Y',
         },
         {
           id: 20,
-          deptid: '200',
-          deptname: 'Depart2',
+          typeassetid: 2,
+          typeassetname: 'Table02',
+          typeassetgroupid: 100,
+          typeassetstatus: 'Y',
         },
         {
           id: 30,
-          deptid: '300',
-          deptname: 'Depart3',
+          typeassetid: 3,
+          typeassetname: 'Cheep',
+          typeassetgroupid: 200,
+          typeassetstatus: 'Y',
         },
         {
           id: 40,
-          deptid: '400',
-          deptname: 'Depart4',
+          typeassetid: 4,
+          typeassetname: 'Van',
+          typeassetgroupid: 200,
+          typeassetstatus: 'Y',
         },
         {
           id: 50,
-          deptid: '500',
-          deptname: 'Depart5',
-        },
-        {
-          id: 60,
-          deptid: '600',
-          deptname: 'Depart6',
-        },
-        {
-          id: 70,
-          deptid: '700',
-          deptname: 'Depart7',
-        },
-        {
-          id: 80,
-          deptid: '800',
-          deptname: 'Depart8',
-        },
-        {
-          id: 90,
-          deptid: '900',
-          deptname: 'Depart9',
-        },
-        {
-          id: 95,
-          deptid: '1000',
-          deptname: 'Depart10',
-        },
-        {
-          id: 97,
-          deptid: '1100',
-          deptname: 'Depart11',
-        },
-        {
-          id: 100,
-          deptid: '1200',
-          deptname: 'Depart12',
+          typeassetid: 5,
+          typeassetname: 'laptop',
+          typeassetgroupid: 500,
+          typeassetstatus: 'Y',
         },
       ]
     },

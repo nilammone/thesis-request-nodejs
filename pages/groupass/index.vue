@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນພະແນກ</h3>
+    <h3 class="mytxt">ຂໍ້ມູນຫມວດຊັບສິນ</h3>
     <hr />
 
     <v-data-table
@@ -12,7 +12,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Department</v-toolbar-title>
+          <v-toolbar-title>Group Asset</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <!-- s search -->
@@ -49,15 +49,21 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptid"
-                        label="Dept_id
+                        v-model="editedItem.groupassetid"
+                        label="Group_asset_id
               "
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptname"
-                        label="Dept_name"
+                        v-model="editedItem.groupassetname"
+                        label="Group_asset_name"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        v-model="editedItem.groupassetstatus"
+                        label="Group_asset_status"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -124,19 +130,26 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Dept_id', value: 'deptid', align: 'center' },
-        { text: 'Dept_name', value: 'deptname', align: 'center' },
+        { text: 'Group_asset_id', value: 'groupassetid', align: 'center' },
+        { text: 'Group_asset_name', value: 'groupassetname', align: 'center' },
+        {
+          text: 'Group_asset_status',
+          value: 'groupassetstatus',
+          align: 'center',
+        },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        deptid: '',
-        deptname: '',
+        groupassetid: '',
+        groupassetname: '',
+        groupassetstatus: '',
       },
       defaultItem: {
-        deptid: '',
-        deptname: '',
+        groupassetid: '',
+        groupassetname: '',
+        groupassetstatus: '',
       },
     }
   },
@@ -165,63 +178,33 @@ export default {
       this.desserts = [
         {
           id: 10,
-          deptid: '100',
-          deptname: 'Depart1',
+          groupassetid: '100',
+          groupassetname: 'Table',
+          groupassetstatus: 'Y',
         },
         {
           id: 20,
-          deptid: '200',
-          deptname: 'Depart2',
+          groupassetid: '200',
+          groupassetname: 'Vehicles',
+          groupassetstatus: 'Y',
         },
         {
           id: 30,
-          deptid: '300',
-          deptname: 'Depart3',
+          groupassetid: '300',
+          groupassetname: 'Chair',
+          groupassetstatus: 'Y',
         },
         {
           id: 40,
-          deptid: '400',
-          deptname: 'Depart4',
+          groupassetid: '400',
+          groupassetname: 'Cabinet',
+          groupassetstatus: 'Y',
         },
         {
           id: 50,
-          deptid: '500',
-          deptname: 'Depart5',
-        },
-        {
-          id: 60,
-          deptid: '600',
-          deptname: 'Depart6',
-        },
-        {
-          id: 70,
-          deptid: '700',
-          deptname: 'Depart7',
-        },
-        {
-          id: 80,
-          deptid: '800',
-          deptname: 'Depart8',
-        },
-        {
-          id: 90,
-          deptid: '900',
-          deptname: 'Depart9',
-        },
-        {
-          id: 95,
-          deptid: '1000',
-          deptname: 'Depart10',
-        },
-        {
-          id: 97,
-          deptid: '1100',
-          deptname: 'Depart11',
-        },
-        {
-          id: 100,
-          deptid: '1200',
-          deptname: 'Depart12',
+          groupassetid: '500',
+          groupassetname: 'Computer',
+          groupassetstatus: 'Y',
         },
       ]
     },
