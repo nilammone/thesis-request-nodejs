@@ -58,6 +58,7 @@
                       <v-text-field
                         v-model="editedItem.typeassetname"
                         label="Type_asset_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -129,6 +130,10 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+      ],
       headers: [
         {
           text: 'No',
