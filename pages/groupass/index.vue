@@ -52,19 +52,30 @@
                         v-model="editedItem.groupassetid"
                         label="Group_asset_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.groupassetname"
                         label="Group_asset_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.groupassetstatus"
                         label="Group_asset_status"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.groupassetstatus"
+                        :items="itemsstatus"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Group_asset_status"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -123,6 +134,11 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+      ],
+      itemsstatus: ['Active', 'In active'],
       headers: [
         {
           text: 'No',
@@ -142,12 +158,12 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        groupassetid: '',
+        groupassetid: 0,
         groupassetname: '',
         groupassetstatus: '',
       },
       defaultItem: {
-        groupassetid: '',
+        groupassetid: 0,
         groupassetname: '',
         groupassetstatus: '',
       },
@@ -156,7 +172,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Group asset' : 'Edit Group asset'
     },
   },
 

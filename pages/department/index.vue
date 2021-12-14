@@ -52,12 +52,14 @@
                         v-model="editedItem.deptid"
                         label="Dept_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.deptname"
                         label="Dept_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -117,6 +119,10 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+      ],
       headers: [
         {
           text: 'No',
@@ -131,11 +137,11 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        deptid: '',
+        deptid: 0,
         deptname: '',
       },
       defaultItem: {
-        deptid: '',
+        deptid: 0,
         deptname: '',
       },
     }
@@ -143,7 +149,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Department' : 'Edit Department'
     },
   },
 

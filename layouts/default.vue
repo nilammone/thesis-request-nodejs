@@ -188,7 +188,7 @@
       <v-btn icon to="#">
         <v-icon>mdi-account</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="username" />
+      <v-toolbar-title style="font-size: 0.9em" v-text="username" />
       <v-btn icon to="#">
         <v-icon>mdi-logout</v-icon>
       </v-btn>

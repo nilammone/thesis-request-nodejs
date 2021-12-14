@@ -52,12 +52,14 @@
                         v-model="editedItem.suppilerid"
                         label="Suppiler_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.suppilername"
                         label="Suppiler_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -117,6 +119,10 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+      ],
       headers: [
         {
           text: 'No',
@@ -148,7 +154,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Suppiler' : 'Edit Suppiler'
     },
   },
 

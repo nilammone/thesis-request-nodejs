@@ -52,12 +52,14 @@
                         v-model="editedItem.firstname"
                         label="firstname
               "
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.lastname"
                         label="lastname"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -78,11 +80,18 @@
                         label="address"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.image"
                         label="image"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-file-input
+                        accept="image/*"
+                        v-model="editedItem.image"
+                        label="Image"
+                      ></v-file-input>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -141,6 +150,10 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+      ],
       headers: [
         {
           text: 'No',
@@ -179,7 +192,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add employee' : 'Edit employee'
     },
   },
 

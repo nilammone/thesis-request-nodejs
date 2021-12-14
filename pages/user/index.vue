@@ -52,12 +52,14 @@
                         v-model="editedItem.username"
                         label="username
               "
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.email"
                         label="email"
+                        :rules="emailRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -73,11 +75,20 @@
                         label="employeeid"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.status"
                         label="status"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.status"
+                        :items="itemsstatus"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="status"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -136,6 +147,15 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+      ],
+      emailRules: [
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      itemsstatus: ['Admin', 'Auth', 'Inputer'],
       headers: [
         {
           text: 'No',
@@ -171,7 +191,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add User' : 'Edit User'
     },
   },
 
