@@ -63,7 +63,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item to="/1">
+        <v-list-item to="/mainasset">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ຊັບສິນ
           </v-list-item-title>
@@ -88,12 +88,12 @@
             ປະເພດອາຄານ
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/6">
+        <v-list-item to="/room">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ຫ້ອງ
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/7">
+        <v-list-item to="/roomtype">
           <v-list-item-title style="color: white; font-size: 0.8em">
             ປະເພດຫ້ອງ
           </v-list-item-title>
@@ -101,7 +101,7 @@
       </v-list-group>
 
       <v-list>
-        <v-list-item to="/8" router exactc>
+        <v-list-item to="/suppiler" router exactc>
           <v-list-item-action>
             <v-icon color="white"></v-icon>
           </v-list-item-action>
