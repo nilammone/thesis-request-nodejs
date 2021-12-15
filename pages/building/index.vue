@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນອາຄານ</h3>
+    <h3 class="mytxt"><v-icon>mdi-city-variant</v-icon> ຂໍ້ມູນອາຄານ</h3>
     <hr />
 
     <v-data-table
@@ -52,25 +52,45 @@
                         v-model="editedItem.buildingid"
                         label="Building_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.buildingno"
                         label="Building_no"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.buildingtypeid"
                         label="Building_typeid"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.buildingtypeid"
+                        :items="itemstype"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Building_typeid"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.buildingstatus"
                         label="Building_status"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.buildingstatus"
+                        :items="itemsstatus"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Building_status"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -129,6 +149,12 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Building_no is required',
+        (v) => v.length <= 10 || 'Building_no must be less than 10 characters',
+      ],
+      itemstype: ['build01', 'build02', 'build03', 'build04'],
+      itemsstatus: ['Active', 'In active'],
       headers: [
         {
           text: 'No',
@@ -173,7 +199,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Building' : 'Edit Building'
     },
   },
 
@@ -198,35 +224,35 @@ export default {
           buildingid: 1,
           buildingno: 'AC01',
           buildingtypeid: 1,
-          buildingstatus: 'Y',
+          buildingstatus: 'Active',
         },
         {
           id: 20,
           buildingid: 2,
           buildingno: 'AC02',
           buildingtypeid: 1,
-          buildingstatus: 'Y',
+          buildingstatus: 'Active',
         },
         {
           id: 30,
           buildingid: 3,
           buildingno: 'AC03',
           buildingtypeid: 2,
-          buildingstatus: 'Y',
+          buildingstatus: 'Active',
         },
         {
           id: 40,
           buildingid: 4,
           buildingno: 'AC04',
           buildingtypeid: 2,
-          buildingstatus: 'Y',
+          buildingstatus: 'Active',
         },
         {
           id: 50,
           buildingid: 5,
           buildingno: 'AC05',
           buildingtypeid: 3,
-          buildingstatus: 'Y',
+          buildingstatus: 'Active',
         },
       ]
     },

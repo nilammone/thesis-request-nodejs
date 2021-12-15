@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນຜູ້ໃຊ້</h3>
+    <h3 class="mytxt"><v-icon>mdi-account</v-icon> ຂໍ້ມູນຜູ້ໃຊ້</h3>
     <hr />
 
     <v-data-table

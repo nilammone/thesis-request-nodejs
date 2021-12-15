@@ -1,6 +1,8 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນຊັບສິນ</h3>
+    <h3 class="mytxt">
+      <v-icon>mdi-clipboard-text-multiple</v-icon> ຂໍ້ມູນຊັບສິນ
+    </h3>
     <hr />
 
     <v-data-table
@@ -52,67 +54,125 @@
                         v-model="editedItem.assetno"
                         label="Asset_no
               "
+                        :rules="noRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetname"
                         label="Asset_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetgroupid"
                         label="Asset_groupid"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.assetgroupid"
+                        :items="itemsgroup"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Asset_group"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assettypeid"
                         label="Asset_typeid"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.assettypeid"
+                        :items="itemstype"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Asset_type"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetstartdate"
                         label="Asset_start_date"
+                        type="date"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetenddate"
                         label="Asset_end_date"
+                        type="date"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetsuppilerid"
                         label="Asset_suppilerid"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.assetsuppilerid"
+                        :items="itemssuppiler"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Asset_suppiler"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetroomid"
                         label="Asset_roomid"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.assetroomid"
+                        :items="itemsroom"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Asset_room"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetbuildingid"
                         label="Asset_buildingid"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.assetbuildingid"
+                        :items="itemsbuild"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Asset_building"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetuserid"
-                        label="Asset_userid"
+                        label="Asset_user"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.assetstatus"
                         label="Asset_status"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.assetstatus"
+                        :items="itemsstatus"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Asset_status"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -171,6 +231,20 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      noRules: [
+        (v) => !!v || 'Asset_no is required',
+        (v) => v.length <= 20 || 'Asset_no must be less than 20 characters',
+      ],
+      nameRules: [
+        (v) => !!v || 'Asset_name is required',
+        (v) => v.length <= 30 || 'Asset_name must be less than 30 characters',
+      ],
+      itemsgroup: ['Table', 'Vehicles', 'Chair', 'Cabinet', 'Computer'],
+      itemstype: ['Table01', 'Table02'],
+      itemssuppiler: ['Suppiler01', 'Suppiler02'],
+      itemsroom: ['Class01', 'Class02'],
+      itemsbuild: ['AC01', 'AC02'],
+      itemsstatus: ['Active', 'In active'],
       headers: [
         {
           text: 'No',
@@ -190,12 +264,12 @@ export default {
           align: 'center',
         },
         {
-          text: 'Asset_groupid',
+          text: 'Asset_group',
           value: 'assetgroupid',
           align: 'center',
         },
         {
-          text: 'Asset_typeid',
+          text: 'Asset_type',
           value: 'assettypeid',
           align: 'center',
         },
@@ -210,22 +284,22 @@ export default {
           align: 'center',
         },
         {
-          text: 'Asset_suppilerid',
+          text: 'Asset_suppiler',
           value: 'assetsuppilerid',
           align: 'center',
         },
         {
-          text: 'Asset_roomid',
+          text: 'Asset_room',
           value: 'assetroomid',
           align: 'center',
         },
         {
-          text: 'Asset_buildingid',
+          text: 'Asset_building',
           value: 'assetbuildingid',
           align: 'center',
         },
         {
-          text: 'Asset_userid',
+          text: 'Asset_user',
           value: 'assetuserid',
           align: 'center',
         },
@@ -293,7 +367,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Asset' : 'Edit Asset'
     },
   },
 

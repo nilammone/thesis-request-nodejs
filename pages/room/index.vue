@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນຫ້ອງ</h3>
+    <h3 class="mytxt"><v-icon>mdi-google-classroom</v-icon> ຂໍ້ມູນຫ້ອງ</h3>
     <hr />
 
     <v-data-table
@@ -52,25 +52,45 @@
                         v-model="editedItem.roomid"
                         label="Room_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.roomno"
                         label="Room_no"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.roomtypeid"
                         label="Room_typeid"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.roomtypeid"
+                        :items="itemstyperoom"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Room_typeid"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.roomstatus"
                         label="Room_status"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.roomstatus"
+                        :items="itemsstatus"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Room_status"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -129,6 +149,12 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Room_no is required',
+        (v) => v.length <= 10 || 'Room_no must be less than 10 characters',
+      ],
+      itemsstatus: ['Active', 'In active'],
+      itemstyperoom: ['room01', 'room02', 'room03', 'room04'],
       headers: [
         {
           text: 'No',
@@ -173,7 +199,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Room' : 'Edit Room'
     },
   },
 
@@ -198,35 +224,35 @@ export default {
           roomid: 1,
           roomno: 'Class01',
           roomtypeid: 1,
-          roomstatus: 'Y',
+          roomstatus: 'Active',
         },
         {
           id: 20,
           roomid: 2,
           roomno: 'Class02',
           roomtypeid: 1,
-          roomstatus: 'Y',
+          roomstatus: 'Active',
         },
         {
           id: 30,
           roomid: 3,
           roomno: 'Class03',
           roomtypeid: 2,
-          roomstatus: 'Y',
+          roomstatus: 'Active',
         },
         {
           id: 40,
           roomid: 4,
           roomno: 'Class04',
           roomtypeid: 2,
-          roomstatus: 'Y',
+          roomstatus: 'Active',
         },
         {
           id: 50,
           roomid: 5,
           roomno: 'Class05',
           roomtypeid: 3,
-          roomstatus: 'Y',
+          roomstatus: 'Active',
         },
       ]
     },

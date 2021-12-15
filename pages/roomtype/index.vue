@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນປະເພດຫ້ອງ</h3>
+    <h3 class="mytxt"><v-icon>mdi-google-classroom</v-icon> ຂໍ້ມູນປະເພດຫ້ອງ</h3>
     <hr />
 
     <v-data-table
@@ -52,12 +52,14 @@
                         v-model="editedItem.roomtypeid"
                         label="Room_type_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.roomtypename"
                         label="Room_type_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -117,6 +119,11 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Room_type_name is required',
+        (v) =>
+          v.length <= 30 || 'Room_type_name must be less than 30 characters',
+      ],
       headers: [
         {
           text: 'No',
@@ -148,7 +155,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Type Room' : 'Edit Type Room'
     },
   },
 

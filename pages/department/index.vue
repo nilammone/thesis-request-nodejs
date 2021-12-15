@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນພະແນກ</h3>
+    <h3 class="mytxt"><v-icon>mdi-collage</v-icon> ຂໍ້ມູນພະແນກ</h3>
     <hr />
 
     <v-data-table
@@ -120,8 +120,8 @@ export default {
       dialog: false,
       dialogDelete: false,
       nameRules: [
-        (v) => !!v || 'Username is required',
-        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+        (v) => !!v || 'Dept_name is required',
+        (v) => v.length <= 30 || 'Dept_name must be less than 30 characters',
       ],
       headers: [
         {

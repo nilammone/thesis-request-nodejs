@@ -1,6 +1,8 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນປະເພດຊັບສິນ</h3>
+    <h3 class="mytxt">
+      <v-icon>mdi-format-list-bulleted</v-icon>ຂໍ້ມູນປະເພດຊັບສິນ
+    </h3>
     <hr />
 
     <v-data-table
@@ -61,17 +63,35 @@
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.typeassetgroupid"
                         label="Type_asset_groupid"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.typeassetgroupid"
+                        :items="itemsgroup"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Type_asset_groupid"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.typeassetstatus"
                         label="Type_asset_status"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.typeassetstatus"
+                        :items="itemsstatus"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Type_asset_status"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -131,9 +151,12 @@ export default {
       dialog: false,
       dialogDelete: false,
       nameRules: [
-        (v) => !!v || 'Username is required',
-        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+        (v) => !!v || 'Type_asset_name is required',
+        (v) =>
+          v.length <= 30 || 'Type_asset_name must be less than 30 characters',
       ],
+      itemsstatus: ['Active', 'In active'],
+      itemsgroup: ['Table', 'Vehicles', 'Chair', 'Cabinet', 'Computer'],
       headers: [
         {
           text: 'No',
@@ -174,7 +197,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1 ? 'Add Type asset' : 'Edit Type asset'
     },
   },
 
@@ -199,35 +222,35 @@ export default {
           typeassetid: 1,
           typeassetname: 'Table01',
           typeassetgroupid: 100,
-          typeassetstatus: 'Y',
+          typeassetstatus: 'Active',
         },
         {
           id: 20,
           typeassetid: 2,
           typeassetname: 'Table02',
           typeassetgroupid: 100,
-          typeassetstatus: 'Y',
+          typeassetstatus: 'Active',
         },
         {
           id: 30,
           typeassetid: 3,
           typeassetname: 'Cheep',
           typeassetgroupid: 200,
-          typeassetstatus: 'Y',
+          typeassetstatus: 'Active',
         },
         {
           id: 40,
           typeassetid: 4,
           typeassetname: 'Van',
           typeassetgroupid: 200,
-          typeassetstatus: 'Y',
+          typeassetstatus: 'Active',
         },
         {
           id: 50,
           typeassetid: 5,
           typeassetname: 'laptop',
           typeassetgroupid: 500,
-          typeassetstatus: 'Y',
+          typeassetstatus: 'Active',
         },
       ]
     },

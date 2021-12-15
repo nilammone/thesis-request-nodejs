@@ -1,6 +1,8 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນຫມວດຊັບສິນ</h3>
+    <h3 class="mytxt">
+      <v-icon>mdi-format-list-bulleted</v-icon> ຂໍ້ມູນຫມວດຊັບສິນ
+    </h3>
     <hr />
 
     <v-data-table
@@ -135,8 +137,9 @@ export default {
       dialog: false,
       dialogDelete: false,
       nameRules: [
-        (v) => !!v || 'Username is required',
-        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+        (v) => !!v || 'Group_asset_name is required',
+        (v) =>
+          v.length <= 30 || 'Group_asset_name must be less than 30 characters',
       ],
       itemsstatus: ['Active', 'In active'],
       headers: [
@@ -196,31 +199,31 @@ export default {
           id: 10,
           groupassetid: '100',
           groupassetname: 'Table',
-          groupassetstatus: 'Y',
+          groupassetstatus: 'Active',
         },
         {
           id: 20,
           groupassetid: '200',
           groupassetname: 'Vehicles',
-          groupassetstatus: 'Y',
+          groupassetstatus: 'Active',
         },
         {
           id: 30,
           groupassetid: '300',
           groupassetname: 'Chair',
-          groupassetstatus: 'Y',
+          groupassetstatus: 'Active',
         },
         {
           id: 40,
           groupassetid: '400',
           groupassetname: 'Cabinet',
-          groupassetstatus: 'Y',
+          groupassetstatus: 'Active',
         },
         {
           id: 50,
           groupassetid: '500',
           groupassetname: 'Computer',
-          groupassetstatus: 'Y',
+          groupassetstatus: 'Active',
         },
       ]
     },

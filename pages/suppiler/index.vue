@@ -1,6 +1,8 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນຜູ້ສະຫນອງ</h3>
+    <h3 class="mytxt">
+      <v-icon>mdi-account-arrow-left</v-icon> ຂໍ້ມູນຜູ້ສະຫນອງ
+    </h3>
     <hr />
 
     <v-data-table
@@ -120,8 +122,9 @@ export default {
       dialog: false,
       dialogDelete: false,
       nameRules: [
-        (v) => !!v || 'Username is required',
-        (v) => v.length <= 30 || 'Username must be less than 30 characters',
+        (v) => !!v || 'Suppiler_name is required',
+        (v) =>
+          v.length <= 30 || 'Suppiler_name must be less than 30 characters',
       ],
       headers: [
         {

@@ -29,6 +29,33 @@
             </v-row>
           </v-form>
         </v-card>
+
+        <!-- s table -->
+        <v-card class="mt-6">
+          <v-card-title>
+            Report All
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table :headers="headers" :items="desserts" :search="search">
+            <template #[`item.numlist`]="{ item }">
+              {{
+                desserts
+                  .map(function (x) {
+                    return x.id
+                  })
+                  .indexOf(item.id) + 1
+              }}
+            </template>
+          </v-data-table>
+        </v-card>
+        <!-- e table -->
       </v-col>
       <v-col cols="12" md="3" class="ml-auto">
         <v-navigation-drawer permanent>
@@ -82,6 +109,112 @@ export default {
     return {
       sdate: '',
       edate: '',
+      search: '',
+      headers: [
+        {
+          text: 'No',
+          align: 'center',
+          sortable: false,
+          value: 'numlist',
+        },
+        { text: 'Head01', value: 'calories' },
+        { text: 'Head02', value: 'fat' },
+        { text: 'Head03', value: 'carbs' },
+        { text: 'Head04', value: 'protein' },
+        { text: 'Head05', value: 'iron' },
+      ],
+      desserts: [
+        {
+          id: 10,
+          name: 'Frozen Yogurt',
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+          iron: '1%',
+        },
+        {
+          id: 20,
+          name: 'Ice cream sandwich',
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          iron: '1%',
+        },
+        {
+          id: 30,
+          name: 'Eclair',
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          iron: '7%',
+        },
+        {
+          id: 40,
+          name: 'Cupcake',
+          calories: 305,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+          iron: '8%',
+        },
+        {
+          id: 50,
+          name: 'Gingerbread',
+          calories: 356,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+          iron: '16%',
+        },
+        {
+          id: 60,
+          name: 'Jelly bean',
+          calories: 375,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          iron: '0%',
+        },
+        {
+          id: 70,
+          name: 'Lollipop',
+          calories: 392,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          iron: '2%',
+        },
+        {
+          id: 80,
+          name: 'Honeycomb',
+          calories: 408,
+          fat: 3.2,
+          carbs: 87,
+          protein: 6.5,
+          iron: '45%',
+        },
+        {
+          id: 90,
+          name: 'Donut',
+          calories: 452,
+          fat: 25.0,
+          carbs: 51,
+          protein: 4.9,
+          iron: '22%',
+        },
+        {
+          id: 100,
+          name: 'KitKat',
+          calories: 518,
+          fat: 26.0,
+          carbs: 65,
+          protein: 7,
+          iron: '6%',
+        },
+      ],
     }
   },
 }

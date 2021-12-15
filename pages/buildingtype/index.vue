@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt">ຂໍ້ມູນປະເພດອາຄານ</h3>
+    <h3 class="mytxt"><v-icon>mdi-city-variant</v-icon> ຂໍ້ມູນປະເພດອາຄານ</h3>
     <hr />
 
     <v-data-table
@@ -52,12 +52,14 @@
                         v-model="editedItem.buildingtypeid"
                         label="Building_type_id
               "
+                        :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.buildingtypename"
                         label="Building_type_name"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -117,6 +119,12 @@ export default {
       search: '',
       dialog: false,
       dialogDelete: false,
+      nameRules: [
+        (v) => !!v || 'Building_type_name is required',
+        (v) =>
+          v.length <= 30 ||
+          'Building_type_name must be less than 30 characters',
+      ],
       headers: [
         {
           text: 'No',
@@ -148,7 +156,9 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add new' : 'Edit'
+      return this.editedIndex === -1
+        ? 'Add Type building'
+        : 'Edit Type Building'
     },
   },
 
