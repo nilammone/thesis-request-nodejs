@@ -21,6 +21,34 @@
           <form class="login100-form validate-form" @submit.prevent="submit">
             <div
               class="wrap-input100 validate-input m-b-26"
+              data-validate="first_name is required"
+            >
+              <span class="label-input100">First_name</span>
+              <input
+                class="input100"
+                type="text"
+                v-model="first_name"
+                placeholder="Enter first_name"
+              />
+              <span class="focus-input100"></span>
+            </div>
+
+            <div
+              class="wrap-input100 validate-input m-b-26"
+              data-validate="last_name is required"
+            >
+              <span class="label-input100">Last_name</span>
+              <input
+                class="input100"
+                type="text"
+                v-model="last_name"
+                placeholder="Enter last_name"
+              />
+              <span class="focus-input100"></span>
+            </div>
+
+            <div
+              class="wrap-input100 validate-input m-b-26"
               data-validate="email is required"
             >
               <span class="label-input100">Email</span>
@@ -47,6 +75,20 @@
               <span class="focus-input100"></span>
             </div>
 
+            <div
+              class="wrap-input100 validate-input m-b-18"
+              data-validate="password_confirm is required"
+            >
+              <span class="label-input100">Pass_confirm</span>
+              <input
+                class="input100"
+                type="password"
+                v-model="password_confirm"
+                placeholder="Enter password_confirm"
+              />
+              <span class="focus-input100"></span>
+            </div>
+
             <div class="flex-sb-m w-full p-b-30">
               <div class="contact100-form-checkbox">
                 <input
@@ -66,7 +108,7 @@
             </div>
 
             <div class="container-login100-form-btn" style="margin-top: 20px">
-              <button class="login100-form-btn">Login</button>
+              <button class="login100-form-btn">Register</button>
             </div>
           </form>
         </div>
@@ -131,8 +173,11 @@ import axios from 'axios'
 export default {
   layout: 'default_login',
   data: () => ({
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
+    password_confirm: '',
     valid: true,
     name: '',
     nameRules: [
@@ -149,21 +194,24 @@ export default {
     checkbox: false,
   }),
 
+  created() {
+    console.log("I'm created!")
+  },
+
   methods: {
     async submit() {
       try {
-        const response = await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
+        await axios.post('http://localhost:8000/api/admin/register', {
+          first_name: this.first_name,
+          last_name: this.last_name,
+          email: this.email,
+          password: this.password,
+          password_confirm: this.password_confirm,
         })
 
-        console.log(response)
-
-        // this.$router.push('/')
-      } catch (e) {
-        console.log(e)
+        await this.$router.push('/login')
+      } catch (err) {
+        console.log(err)
       }
     },
     validate() {

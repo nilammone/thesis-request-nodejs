@@ -49,10 +49,45 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
+
+  // auth
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: false,
+    },
+    strategies: {
+      local: true,
+      cookie: {
+        token: {
+          property: 'data.access_token',
+          required: true,
+          type: 'Bearer',
+        },
+        user: {
+          property: 'data',
+        },
+        endpoints: {
+          login: {
+            url: 'http://localhost:8000/api/admin/login',
+            method: 'post',
+          },
+          logout: {
+            url: 'http://localhost:8000/api/admin/logout',
+            method: 'post',
+          },
+          user: { url: 'http://localhost:8000/api/admin/user', method: 'get' },
+        },
+      },
+    },
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
