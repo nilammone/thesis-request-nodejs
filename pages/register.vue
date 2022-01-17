@@ -201,7 +201,9 @@ export default {
   methods: {
     async submit() {
       try {
-        await axios.post('http://localhost:8000/api/admin/register', {
+        const surl = this.$axios.defaults.baseURL + 'register'
+
+        await axios.post(surl, {
           first_name: this.first_name,
           last_name: this.last_name,
           email: this.email,

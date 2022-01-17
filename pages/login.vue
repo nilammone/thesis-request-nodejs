@@ -3,12 +3,6 @@
     <div class="limiter">
       <div class="container-login100">
         <div class="wrap-login100">
-          <!-- <div
-            class="login100-form-title"
-            style="background-image: url(bg-01.jpg)"
-          > -->
-          <!-- <span class="login100-form-title-1"> Login Asset Sys </span> -->
-          <!-- </div> -->
           <div style="margin-top: 30px">
             <v-img
               src="/assetlogo.png"
@@ -63,6 +57,14 @@
               <!-- <div>
                 <a href="#" class="txt1"> Forgot Password? </a>
               </div> -->
+            </div>
+            <div v-if="cherror" class="alert" style="margin-top: 20px">
+              <span
+                class="closebtn"
+                onclick="this.parentElement.style.display='none';"
+                >&times;</span
+              >
+              User or Password Invalid...!
             </div>
 
             <div class="container-login100-form-btn" style="margin-top: 20px">
@@ -133,48 +135,51 @@ export default {
   data: () => ({
     email: '',
     password: '',
-    valid: true,
-    name: '',
-    nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    email: '',
-    emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
-    select: null,
-    items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-    checkbox: false,
+    cherror: false,
+    // valid: true,
+    // name: '',
+    // nameRules: [
+    //   (v) => !!v || 'Name is required',
+    //   (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    // ],
+    // email: '',
+    // emailRules: [
+    //   (v) => !!v || 'E-mail is required',
+    //   (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    // ],
+    // select: null,
+    // items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+    // checkbox: false,
   }),
 
   methods: {
+    // async submit() {
     async submit() {
       try {
-        const response = await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
+        const surl = this.$axios.defaults.baseURL + 'login'
+
+        await axios.post(surl, {
+          email: this.email,
+          password: this.password,
         })
 
-        console.log(response)
+        // console.log(resp)
 
-        // this.$router.push('/')
-      } catch (e) {
-        console.log(e)
+        this.$router.push('/')
+      } catch (err) {
+        console.log(err)
+        this.cherror = true
       }
     },
-    validate() {
-      this.$refs.form.validate()
-    },
-    reset() {
-      this.$refs.form.reset()
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation()
-    },
+    // validate() {
+    //   this.$refs.form.validate()
+    // },
+    // reset() {
+    //   this.$refs.form.reset()
+    // },
+    // resetValidation() {
+    //   this.$refs.form.resetValidation()
+    // },
   },
 }
 </script>
@@ -189,6 +194,28 @@ export default {
 body,
 html {
   height: 100%;
+}
+
+/* --------------------------------------------*/
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }
 
 /*---------------------------------------------*/
