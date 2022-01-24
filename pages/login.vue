@@ -158,10 +158,14 @@ export default {
       try {
         const surl = this.$axios.defaults.baseURL + 'login'
 
-        await axios.post(surl, {
-          email: this.email,
-          password: this.password,
-        })
+        await axios.post(
+          surl,
+          {
+            email: this.email,
+            password: this.password,
+          },
+          { withCredentials: true }
+        )
 
         // console.log(resp)
 
