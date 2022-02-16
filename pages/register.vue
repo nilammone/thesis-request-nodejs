@@ -39,15 +39,15 @@
 
             <div
               class="wrap-input100 validate-input m-b-26"
-              data-validate="name is required"
+              data-validate="username is required"
             >
-              <span class="label-input100">name</span>
+              <span class="label-input100">username</span>
               <input
                 class="input100"
                 type="text"
-                v-model="name"
+                v-model="username"
                 required
-                placeholder="Enter name"
+                placeholder="Enter username"
               />
               <span class="focus-input100"></span>
             </div>
@@ -78,6 +78,21 @@
                 required
                 v-model="password"
                 placeholder="Enter password"
+              />
+              <span class="focus-input100"></span>
+            </div>
+
+            <div
+              class="wrap-input100 validate-input m-b-26"
+              data-validate="employee_name is required"
+            >
+              <span class="label-input100">employee_name</span>
+              <input
+                class="input100"
+                type="text"
+                v-model="empname"
+                required
+                placeholder="Enter Employee Name"
               />
               <span class="focus-input100"></span>
             </div>
@@ -183,9 +198,10 @@ export default {
 
   data: () => ({
     // first_name: '',
-    name: '',
+    username: '',
     email: '',
     password: '',
+    empname: '',
     // password_confirm: '',
     valid: true,
     name: '',
@@ -212,14 +228,12 @@ export default {
       try {
         await axios
           .get(
-            `http://localhost:8000/api/register?name=${this.name}&email=${this.email}&password=${this.password}`
+            `http://localhost:8000/api/register?username=${this.username}&email=${this.email}&password=${this.password}&user_emp_id=${this.empname}`
           )
           .then((response) => {
             this.$router.push('/login')
           })
           .catch((error) => console.log(error))
-
-        // await this.$router.push('/login')
       } catch (err) {
         console.log(err)
       }
