@@ -18,8 +18,12 @@
             ></v-img>
           </div>
 
+          <div style="text-align: center; margin-top: 20px; color: #808080">
+            <h3>Register</h3>
+          </div>
+
           <form class="login100-form validate-form" @submit.prevent="submit">
-            <div
+            <!-- <div
               class="wrap-input100 validate-input m-b-26"
               data-validate="first_name is required"
             >
@@ -31,18 +35,19 @@
                 placeholder="Enter first_name"
               />
               <span class="focus-input100"></span>
-            </div>
+            </div> -->
 
             <div
               class="wrap-input100 validate-input m-b-26"
-              data-validate="last_name is required"
+              data-validate="name is required"
             >
-              <span class="label-input100">Last_name</span>
+              <span class="label-input100">name</span>
               <input
                 class="input100"
                 type="text"
-                v-model="last_name"
-                placeholder="Enter last_name"
+                v-model="name"
+                required
+                placeholder="Enter name"
               />
               <span class="focus-input100"></span>
             </div>
@@ -55,6 +60,7 @@
               <input
                 class="input100"
                 type="email"
+                required
                 v-model="email"
                 placeholder="Enter email"
               />
@@ -69,13 +75,14 @@
               <input
                 class="input100"
                 type="password"
+                required
                 v-model="password"
                 placeholder="Enter password"
               />
               <span class="focus-input100"></span>
             </div>
 
-            <div
+            <!-- <div
               class="wrap-input100 validate-input m-b-18"
               data-validate="password_confirm is required"
             >
@@ -87,7 +94,7 @@
                 placeholder="Enter password_confirm"
               />
               <span class="focus-input100"></span>
-            </div>
+            </div> -->
 
             <div class="flex-sb-m w-full p-b-30">
               <div class="contact100-form-checkbox">
@@ -172,12 +179,14 @@ import axios from 'axios'
 
 export default {
   layout: 'default_login',
+  auth: false,
+
   data: () => ({
-    first_name: '',
-    last_name: '',
+    // first_name: '',
+    name: '',
     email: '',
     password: '',
-    password_confirm: '',
+    // password_confirm: '',
     valid: true,
     name: '',
     nameRules: [
@@ -195,36 +204,35 @@ export default {
   }),
 
   created() {
-    console.log("I'm created!")
+    // console.log("I'm created!")
   },
 
   methods: {
     async submit() {
       try {
-        const surl = this.$axios.defaults.baseURL + 'register'
+        await axios
+          .get(
+            `http://localhost:8000/api/register?name=${this.name}&email=${this.email}&password=${this.password}`
+          )
+          .then((response) => {
+            this.$router.push('/login')
+          })
+          .catch((error) => console.log(error))
 
-        await axios.post(surl, {
-          first_name: this.first_name,
-          last_name: this.last_name,
-          email: this.email,
-          password: this.password,
-          password_confirm: this.password_confirm,
-        })
-
-        await this.$router.push('/login')
+        // await this.$router.push('/login')
       } catch (err) {
         console.log(err)
       }
     },
-    validate() {
-      this.$refs.form.validate()
-    },
-    reset() {
-      this.$refs.form.reset()
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation()
-    },
+    // validate() {
+    //   this.$refs.form.validate()
+    // },
+    // reset() {
+    //   this.$refs.form.reset()
+    // },
+    // resetValidation() {
+    //   this.$refs.form.resetValidation()
+    // },
   },
 }
 </script>
