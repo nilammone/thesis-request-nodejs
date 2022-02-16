@@ -15,7 +15,7 @@
                   ຈຳນວນຊັບສິນທັງຫມົດ
                 </v-card-title></v-col
               >
-              <v-col md="4"><v-card-subtitle> 1,000 </v-card-subtitle></v-col>
+              <v-col md="4"><v-card-subtitle> 2,000 </v-card-subtitle></v-col>
             </v-row>
           </v-card>
         </v-col>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {

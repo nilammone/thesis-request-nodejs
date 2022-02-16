@@ -1,9 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  server: {
-    host: '0.0.0.0',
-  },
+  // server: {
+  //   host: '0.0.0.0',
+  // },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   target: 'static',
   ssr: false,
@@ -28,10 +28,10 @@ export default {
   css: ['~/assets/css/style.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+
   plugins: [
     {
       src: '@/plugins/apex-chart.js',
-      mode: 'client',
     },
   ],
 
@@ -52,53 +52,39 @@ export default {
     '@nuxtjs/auth-next',
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: { baseURL: 'http://localhost:8000/api/admin/' },
+  router: {
+    middleware: ['auth'],
+  },
 
-  // proxy: {
-  //   '/api/': {
-  //     target: 'http://localhost:8000api/admin/',
-  //     pathRewrite: { '^/api/': '' },
-  //     changeOrigin: true,
-  //   },
-  // },
+  axios: { Credential: true },
 
-  // auth
-  // auth: {
-  //   redirect: {
-  //     login: '/login',
-  //     logout: '/login',
-  //     callback: '/login',
-  //     home: false,
-  //   },
-  //   strategies: {
-  //     local: true,
-  //     cookie: {
-  //       token: {
-  //         property: 'data.access_token',
-  //         required: true,
-  //         type: 'Bearer',
-  //       },
-  //       user: {
-  //         property: 'data',
-  //       },
-  //       endpoints: {
-  //         login: {
-  //           url: 'http://localhost:8000/api/admin/login',
-  //           method: 'post',
-  //         },
-  //         logout: {
-  //           url: 'http://localhost:8000/api/admin/logout',
-  //           method: 'post',
-  //         },
-  //         user: {
-  //           url: 'http://localhost:8000/api/admin/user',
-  //           method: 'get',
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
+  auth: {
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: 'http://localhost:8000',
+        endpoints: {
+          login: {
+            url: '/api/login',
+          },
+          logout: {
+            url: '/api/logout',
+          },
+          user: {
+            url: '/api/user',
+          },
+        },
+        user: {
+          property: false,
+        },
+      },
+    },
+    redirect: {
+      login: '/login',
+      logout: '/',
+      home: '/',
+    },
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

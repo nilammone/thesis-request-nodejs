@@ -158,7 +158,7 @@
         </v-list-item>
       </v-list>
       <v-list>
-        <v-list-item to="/logout" router exactc>
+        <v-list-item @click.prevent="logout()" router exactc>
           <v-list-item-action>
             <v-icon color="white"> mdi-logout </v-icon>
           </v-list-item-action>
@@ -188,8 +188,12 @@
       <v-btn icon to="#">
         <v-icon>mdi-account</v-icon>
       </v-btn>
-      <v-toolbar-title style="font-size: 0.9em" v-text="username" />
-      <v-btn icon to="#">
+      <v-toolbar-title
+        style="font-size: 0.9em"
+        v-if="$auth.loggedIn"
+        v-text="$auth.user.name"
+      />
+      <v-btn icon @click.prevent="logout()">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
@@ -248,6 +252,17 @@ export default {
       title: 'Asset System',
       username: 'Nilammone',
     }
+  },
+  methods: {
+    async logout() {
+      try {
+        await this.$auth.logout()
+
+        await this.$router.push('/login')
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 }
 </script>

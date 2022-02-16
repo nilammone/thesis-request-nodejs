@@ -12,7 +12,7 @@
             ></v-img>
           </div>
 
-          <form class="login100-form validate-form" @submit.prevent="submit">
+          <form class="login100-form validate-form" @submit.prevent="login()">
             <div
               class="wrap-input100 validate-input m-b-26"
               data-validate="email is required"
@@ -129,6 +129,9 @@
 
 <script>
 import axios from 'axios'
+// import Vue from 'Vue'
+// import VueCookies from 'vue-cookie'
+// Vue.use(VueCookies)
 
 export default {
   layout: 'default_login',
@@ -136,6 +139,12 @@ export default {
     email: '',
     password: '',
     cherror: false,
+
+    // form: {
+    //   email: '',
+    //   password: '',
+    // },
+
     // valid: true,
     // name: '',
     // nameRules: [
@@ -153,28 +162,25 @@ export default {
   }),
 
   methods: {
-    // async submit() {
-    async submit() {
-      try {
-        const surl = this.$axios.defaults.baseURL + 'login'
+    // s add new
 
-        await axios.post(
-          surl,
-          {
+    login() {
+      this.$auth
+        .loginWith('laravelSanctum', {
+          data: {
             email: this.email,
             password: this.password,
           },
-          { withCredentials: true }
-        )
-
-        // console.log(resp)
-
-        this.$router.push('/')
-      } catch (err) {
-        console.log(err)
-        this.cherror = true
-      }
+        })
+        .then((response) => console.log(response))
+        .catch((error) => {
+          console.log(error)
+          this.cherror = true
+        })
     },
+    // e add new
+
+    // async submit() {g
     // validate() {
     //   this.$refs.form.validate()
     // },
