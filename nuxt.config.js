@@ -56,7 +56,11 @@ export default {
     middleware: ['auth'],
   },
 
-  axios: { Credential: true },
+  axios: {
+    baseURL: 'http://localhost:8000/api',
+    // Credential: true,
+    credentials: true,
+  },
 
   auth: {
     strategies: {

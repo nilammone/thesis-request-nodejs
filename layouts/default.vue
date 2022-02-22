@@ -191,7 +191,7 @@
       <v-toolbar-title
         style="font-size: 0.9em"
         v-if="$auth.loggedIn"
-        v-text="$auth.user.name"
+        v-text="$auth.user.username"
       />
       <v-btn icon @click.prevent="logout()">
         <v-icon>mdi-logout</v-icon>

@@ -9,7 +9,7 @@
       :headers="headers"
       :items="desserts"
       :search="search"
-      sort-by="usernam"
+      sort-by=""
       class="elevation-1 mt-5"
     >
       <template v-slot:top>
@@ -51,7 +51,7 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.firstname"
+                        v-model="editedItem.emp_firstname"
                         label="firstname
               "
                         :rules="nameRules"
@@ -59,26 +59,26 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.lastname"
+                        v-model="editedItem.emp_lastname"
                         label="lastname"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.deptid"
+                        v-model="editedItem.emp_dept_id"
                         label="deptid"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.contact"
+                        v-model="editedItem.emp_contact"
                         label="contact"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.address"
+                        v-model="editedItem.emp_address"
                         label="address"
                       ></v-text-field>
                     </v-col>
@@ -113,7 +113,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.emp_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -125,7 +128,7 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template #[`item.numlist`]="{ item }">
+      <!-- <template #[`item.numlist`]="{ item }">
         {{
           desserts
             .map(function (x) {
@@ -133,6 +136,9 @@
             })
             .indexOf(item.id) + 1
         }}
+      </template> -->
+      <template #[`item.numlist`]="{ item }">
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -142,6 +148,18 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+
+    <!-- s alert -->
+    <v-snackbar v-model="snackbar" absolute bottom color="success" outlined>
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="success" text v-bind="attrs" @click="snackbar = false">
+          <v-icon>mdi-close-circle</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <!-- e alert -->
   </div>
 </template>
 
@@ -149,6 +167,10 @@
 export default {
   data() {
     return {
+      carouselInterval: null,
+      multiLine: true,
+      snackbar: false,
+      text: `Success!.`,
       search: '',
       dialog: false,
       dialogDelete: false,
@@ -163,31 +185,31 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Firstname', value: 'firstname', align: 'center' },
-        { text: 'Lastname', value: 'lastname', align: 'center' },
-        { text: 'Dept_id', value: 'deptid', align: 'center' },
-        { text: 'Contact', value: 'contact', align: 'center' },
-        { text: 'Address', value: 'address', align: 'center' },
-        { text: 'Image', value: 'image', align: 'center' },
+        { text: 'Firstname', value: 'emp_firstname', align: 'center' },
+        { text: 'Lastname', value: 'emp_lastname', align: 'center' },
+        { text: 'Dept_id', value: 'emp_dept_id', align: 'center' },
+        { text: 'Contact', value: 'emp_contact', align: 'center' },
+        { text: 'Address', value: 'emp_address', align: 'center' },
+        { text: 'Image', value: 'emp_image', align: 'center' },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        firstname: '',
-        lastname: '',
-        deptid: 0,
-        contact: '',
-        address: '',
-        image: '',
+        emp_firstname: '',
+        emp_lastname: '',
+        emp_dept_id: 0,
+        emp_contact: '',
+        emp_address: '',
+        emp_image: '',
       },
       defaultItem: {
-        firstname: '',
-        lastname: '',
-        deptid: 0,
-        contact: '',
-        address: '',
-        image: '',
+        emp_firstname: '',
+        emp_lastname: '',
+        emp_dept_id: 0,
+        emp_contact: '',
+        emp_address: '',
+        emp_image: '',
       },
     }
   },
@@ -212,117 +234,16 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          firstname: 'Chantha',
-          lastname: 'mono',
-          deptid: 1,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/01.png',
-        },
-        {
-          id: 20,
-          firstname: 'Chantha2',
-          lastname: 'mono2',
-          deptid: 12,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/012.png',
-        },
-        {
-          id: 30,
-          firstname: 'Chantha3',
-          lastname: 'mono3',
-          deptid: 13,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/013.png',
-        },
-        {
-          id: 40,
-          firstname: 'Chantha4',
-          lastname: 'mono4',
-          deptid: 14,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/014.png',
-        },
-        {
-          id: 50,
-          firstname: 'Chantha5',
-          lastname: 'mono5',
-          deptid: 15,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/015.png',
-        },
-        {
-          id: 60,
-          firstname: 'Chantha7',
-          lastname: 'mono7',
-          deptid: 17,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/017.png',
-        },
-        {
-          id: 70,
-          firstname: 'Chantha8',
-          lastname: 'mono8',
-          deptid: 18,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/018.png',
-        },
-        {
-          id: 80,
-          firstname: 'Chantha9',
-          lastname: 'mono9',
-          deptid: 19,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/019.png',
-        },
-        {
-          id: 90,
-          firstname: 'Chantha10',
-          lastname: 'mono10',
-          deptid: 110,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/0110.png',
-        },
-        {
-          id: 95,
-          firstname: 'Chantha11',
-          lastname: 'mono11',
-          deptid: 111,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/0111.png',
-        },
-        {
-          id: 97,
-          firstname: 'Chantha12',
-          lastname: 'mono12',
-          deptid: 112,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/0112.png',
-        },
-        {
-          id: 100,
-          firstname: 'Chantha13',
-          lastname: 'mono13',
-          deptid: 113,
-          contact: '020 55556666',
-          address: 'Vientiane',
-          image: '/0113.png',
-        },
-      ]
+    async initialize() {
+      // s set api
+      try {
+        await this.$axios.get(`/employees`).then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+      // e set api
     },
 
     editItem(item) {
@@ -337,8 +258,22 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
+    async deleteItemConfirm(empid) {
+      // s delete
+      try {
+        await this.$axios
+          .delete(`/employees/${empid}`)
+          .then((res) => {
+            console.log('Delete completed!')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        await location.reload()
+      } catch (error) {
+        console.log(error)
+      }
+      // e delete
       this.closeDelete()
     },
 
@@ -358,12 +293,44 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        // Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        console.log('Im edit')
         // console.log(this.desserts[0].id)
       } else {
-        this.desserts.push(this.editedItem)
+        // this.desserts.push(this.editedItem)
+
+        // console.log(this.editedItem)
+        // console.log(this.editedItem.image.name)
+
+        // s insert
+        const getresdata = {
+          emp_firstname: this.editedItem.emp_firstname,
+          emp_lastname: this.editedItem.emp_lastname,
+          emp_dept_id: this.editedItem.emp_dept_id,
+          emp_contact: this.editedItem.emp_contact,
+          emp_address: this.editedItem.emp_address,
+          emp_image: 'imgs/' + this.editedItem.image.name,
+        }
+
+        try {
+          await this.$axios
+            .post('/employees', getresdata)
+            .then((res) => {
+              console.log('Insert completed!')
+            })
+            .catch((error) => console.log(error))
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
+        // e insert
       }
       this.close()
     },
@@ -371,6 +338,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
