@@ -140,8 +140,22 @@
       <template #[`item.numlist`]="{ item }">
         {{ desserts.indexOf(item) + 1 }}
       </template>
+
+      <template #[`item.emp_image`]="{ item }">
+        <v-avatar>
+          <img
+            :src="`http://localhost:8000/storage/${item.emp_image}`"
+            alt=""
+            width="50"
+            height="50"
+          />
+        </v-avatar>
+      </template>
+
       <template #[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small class="mr-2" disabled @click="editItem(item)">
+          mdi-pencil
+        </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
@@ -168,6 +182,7 @@ export default {
   data() {
     return {
       carouselInterval: null,
+      getupfilename: null,
       multiLine: true,
       snackbar: false,
       text: `Success!.`,
@@ -301,8 +316,24 @@ export default {
       } else {
         // this.desserts.push(this.editedItem)
 
-        // console.log(this.editedItem)
-        // console.log(this.editedItem.image.name)
+        // s upload image
+        const fd = new FormData()
+        fd.append('file', this.editedItem.image, this.editedItem.image.name)
+
+        await this.$axios
+          .post('/upload', fd)
+          .then((res) => {
+            // console.log(res.data.result)
+            console.log('upload image completed!')
+            this.getupfilename = res.data.result
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        // e upload image
+
+        // cut name image
+        const subimagename = this.getupfilename.substr(7)
 
         // s insert
         const getresdata = {
@@ -311,7 +342,7 @@ export default {
           emp_dept_id: this.editedItem.emp_dept_id,
           emp_contact: this.editedItem.emp_contact,
           emp_address: this.editedItem.emp_address,
-          emp_image: 'imgs/' + this.editedItem.image.name,
+          emp_image: subimagename,
         }
 
         try {
