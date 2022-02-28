@@ -47,17 +47,9 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="12" md="12">
                       <v-text-field
-                        v-model="editedItem.deptid"
-                        label="Dept_id
-              "
-                        :rules="[(v) => !!v || 'Item is required']"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.deptname"
+                        v-model="editedItem.dept_name"
                         label="Dept_name"
                         :rules="nameRules"
                       ></v-text-field>
@@ -80,7 +72,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.dept_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -92,14 +87,9 @@
           </v-dialog>
         </v-toolbar>
       </template>
+
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -109,14 +99,24 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       nameRules: [
@@ -130,19 +130,18 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Dept_id', value: 'deptid', align: 'center' },
-        { text: 'Dept_name', value: 'deptname', align: 'center' },
+        { text: 'Dept_name', value: 'dept_name', align: 'center' },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        deptid: 0,
-        deptname: '',
+        // deptid: 0,
+        dept_name: '',
       },
       defaultItem: {
-        deptid: 0,
-        deptname: '',
+        // deptid: 0,
+        dept_name: '',
       },
     }
   },
@@ -167,69 +166,14 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          deptid: '100',
-          deptname: 'Depart1',
-        },
-        {
-          id: 20,
-          deptid: '200',
-          deptname: 'Depart2',
-        },
-        {
-          id: 30,
-          deptid: '300',
-          deptname: 'Depart3',
-        },
-        {
-          id: 40,
-          deptid: '400',
-          deptname: 'Depart4',
-        },
-        {
-          id: 50,
-          deptid: '500',
-          deptname: 'Depart5',
-        },
-        {
-          id: 60,
-          deptid: '600',
-          deptname: 'Depart6',
-        },
-        {
-          id: 70,
-          deptid: '700',
-          deptname: 'Depart7',
-        },
-        {
-          id: 80,
-          deptid: '800',
-          deptname: 'Depart8',
-        },
-        {
-          id: 90,
-          deptid: '900',
-          deptname: 'Depart9',
-        },
-        {
-          id: 95,
-          deptid: '1000',
-          deptname: 'Depart10',
-        },
-        {
-          id: 97,
-          deptid: '1100',
-          deptname: 'Depart11',
-        },
-        {
-          id: 100,
-          deptid: '1200',
-          deptname: 'Depart12',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/departments').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {
@@ -244,9 +188,15 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(deptId) {
+      try {
+        await this.$axios.delete(`/departments/${deptId}`).then((res) => {
+          console.log('Delete completed!')
+        })
+        await location.reload()
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     close() {
@@ -265,12 +215,46 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          dept_name: this.editedItem.dept_name,
+        }
+
+        try {
+          await this.$axios
+            .put(`/departments/${this.editedItem.dept_id}`, sendresdata)
+            .then((res) => {
+              console.log(res)
+              console.log('edit completed!')
+            })
+          await location.reload()
+        } catch (error) {
+          console.log(error)
+        }
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          dept_name: this.editedItem.dept_name,
+        }
+
+        try {
+          await this.$axios
+            .post('/departments', getresdata)
+            .then((res) => {
+              console.log('Insert completed')
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },

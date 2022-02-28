@@ -51,28 +51,14 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.groupassetid"
-                        label="Group_asset_id
-              "
-                        :rules="[(v) => !!v || 'Item is required']"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.groupassetname"
+                        v-model="editedItem.gass_name"
                         label="Group_asset_name"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.groupassetstatus"
-                        label="Group_asset_status"
-                      ></v-text-field>
-                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.groupassetstatus"
+                        v-model="editedItem.gass_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Group_asset_status"
@@ -97,7 +83,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.gass_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -110,13 +99,7 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -126,14 +109,25 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
+
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       nameRules: [
@@ -149,11 +143,10 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Group_asset_id', value: 'groupassetid', align: 'center' },
-        { text: 'Group_asset_name', value: 'groupassetname', align: 'center' },
+        { text: 'Group_asset_name', value: 'gass_name', align: 'center' },
         {
           text: 'Group_asset_status',
-          value: 'groupassetstatus',
+          value: 'gass_status',
           align: 'center',
         },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
@@ -161,14 +154,12 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        groupassetid: 0,
-        groupassetname: '',
-        groupassetstatus: '',
+        gass_name: '',
+        gass_status: '',
       },
       defaultItem: {
-        groupassetid: 0,
-        groupassetname: '',
-        groupassetstatus: '',
+        gass_name: '',
+        gass_status: '',
       },
     }
   },
@@ -193,39 +184,14 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          groupassetid: '100',
-          groupassetname: 'Table',
-          groupassetstatus: 'Active',
-        },
-        {
-          id: 20,
-          groupassetid: '200',
-          groupassetname: 'Vehicles',
-          groupassetstatus: 'Active',
-        },
-        {
-          id: 30,
-          groupassetid: '300',
-          groupassetname: 'Chair',
-          groupassetstatus: 'Active',
-        },
-        {
-          id: 40,
-          groupassetid: '400',
-          groupassetname: 'Cabinet',
-          groupassetstatus: 'Active',
-        },
-        {
-          id: 50,
-          groupassetid: '500',
-          groupassetname: 'Computer',
-          groupassetstatus: 'Active',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/groupassets').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {
@@ -240,9 +206,16 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(gassId) {
+      try {
+        await this.$axios.delete(`/groupassets/${gassId}`).then((res) => {
+          console.log('Delete completed!')
+        })
+
+        await location.reload()
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {
@@ -261,12 +234,43 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          gass_name: this.editedItem.gass_name,
+          gass_status: this.editedItem.gass_status,
+        }
+
+        try {
+          await this.$axios
+            .put(`/groupassets/${this.editedItem.gass_id}`, sendresdata)
+            .then((res) => {
+              console.log('edit completed!')
+            })
+
+          await location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          gass_name: this.editedItem.gass_name,
+          gass_status: this.editedItem.gass_status,
+        }
+
+        try {
+          await this.$axios.post('/groupassets', getresdata).then((res) => {
+            console.log('Insert completed!')
+          })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },

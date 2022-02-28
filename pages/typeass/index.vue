@@ -51,42 +51,27 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.typeassetid"
-                        label="Type_asset_id
-              "
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.typeassetname"
+                        v-model="editedItem.tass_name"
                         label="Type_asset_name"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.typeassetgroupid"
-                        label="Type_asset_groupid"
-                      ></v-text-field>
-                    </v-col> -->
+
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.typeassetgroupid"
+                        v-model="editedItem.tass_gass_id"
                         :items="itemsgroup"
+                        item-value="gass_id"
+                        item-text="gass_name"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Type_asset_groupid"
                         required
                       ></v-select>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.typeassetstatus"
-                        label="Type_asset_status"
-                      ></v-text-field>
-                    </v-col> -->
+
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.typeassetstatus"
+                        v-model="editedItem.tass_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Type_asset_status"
@@ -124,13 +109,7 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -140,14 +119,25 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
+
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       nameRules: [
@@ -156,7 +146,7 @@ export default {
           v.length <= 30 || 'Type_asset_name must be less than 30 characters',
       ],
       itemsstatus: ['Active', 'In active'],
-      itemsgroup: ['Table', 'Vehicles', 'Chair', 'Cabinet', 'Computer'],
+      itemsgroup: [],
       headers: [
         {
           text: 'No',
@@ -164,16 +154,15 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Type_asset_id', value: 'typeassetid', align: 'center' },
-        { text: 'Type_asset_name', value: 'typeassetname', align: 'center' },
+        { text: 'Type_asset_name', value: 'tass_name', align: 'center' },
         {
           text: 'Type_asset_groupid',
-          value: 'typeassetgroupid',
+          value: 'gass_name',
           align: 'center',
         },
         {
           text: 'Type_asset_status',
-          value: 'typeassetstatus',
+          value: 'tass_status',
           align: 'center',
         },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
@@ -181,16 +170,14 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        typeassetid: 0,
-        typeassetname: '',
-        typeassetgroupid: 0,
-        typeassetstatus: '',
+        tass_name: '',
+        tass_gass_id: 0,
+        tass_gass_id: '',
       },
       defaultItem: {
-        typeassetid: 0,
-        typeassetname: '',
-        typeassetgroupid: 0,
-        typeassetstatus: '',
+        tass_name: '',
+        tass_gass_id: 0,
+        tass_gass_id: '',
       },
     }
   },
@@ -212,47 +199,28 @@ export default {
 
   created() {
     this.initialize()
+    this.getDataGroupassets()
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          typeassetid: 1,
-          typeassetname: 'Table01',
-          typeassetgroupid: 100,
-          typeassetstatus: 'Active',
-        },
-        {
-          id: 20,
-          typeassetid: 2,
-          typeassetname: 'Table02',
-          typeassetgroupid: 100,
-          typeassetstatus: 'Active',
-        },
-        {
-          id: 30,
-          typeassetid: 3,
-          typeassetname: 'Cheep',
-          typeassetgroupid: 200,
-          typeassetstatus: 'Active',
-        },
-        {
-          id: 40,
-          typeassetid: 4,
-          typeassetname: 'Van',
-          typeassetgroupid: 200,
-          typeassetstatus: 'Active',
-        },
-        {
-          id: 50,
-          typeassetid: 5,
-          typeassetname: 'laptop',
-          typeassetgroupid: 500,
-          typeassetstatus: 'Active',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/getdataJoingroupasset').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataGroupassets() {
+      try {
+        await this.$axios.get('/getGroupassetOnlyActive').then((res) => {
+          this.itemsgroup = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {
@@ -288,12 +256,33 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
         // console.log(this.desserts[0].id)
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          tass_name: this.editedItem.tass_name,
+          tass_gass_id: this.editedItem.tass_gass_id,
+          tass_status: this.editedItem.tass_status,
+        }
+        // console.log(this.editedItem.tass_name)
+        // console.log(this.editedItem.tass_gass_id)
+        // console.log(this.editedItem.tass_status)
+
+        try {
+          await this.$axios.post('/typeassets', getresdata).then((res) => {
+            console.log('Insert completed!')
+          })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },

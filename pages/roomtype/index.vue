@@ -47,17 +47,9 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="12" md="12">
                       <v-text-field
-                        v-model="editedItem.roomtypeid"
-                        label="Room_type_id
-              "
-                        :rules="[(v) => !!v || 'Item is required']"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.roomtypename"
+                        v-model="editedItem.rt_name"
                         label="Room_type_name"
                         :rules="nameRules"
                       ></v-text-field>
@@ -80,7 +72,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.rt_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -93,13 +88,7 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -109,14 +98,25 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
+
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       nameRules: [
@@ -131,10 +131,9 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Room_type_id', value: 'roomtypeid', align: 'center' },
         {
           text: 'Room_type_name',
-          value: 'roomtypename',
+          value: 'rt_name',
           align: 'center',
         },
 
@@ -143,12 +142,10 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        roomtypeid: 0,
-        roomtypename: '',
+        rt_name: '',
       },
       defaultItem: {
-        roomtypeid: 0,
-        roomtypename: '',
+        rt_name: '',
       },
     }
   },
@@ -173,34 +170,14 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          roomtypeid: 1,
-          roomtypename: 'room01',
-        },
-        {
-          id: 20,
-          roomtypeid: 2,
-          roomtypename: 'room02',
-        },
-        {
-          id: 30,
-          roomtypeid: 3,
-          roomtypename: 'room03',
-        },
-        {
-          id: 40,
-          roomtypeid: 4,
-          roomtypename: 'room04',
-        },
-        {
-          id: 50,
-          roomtypeid: 5,
-          roomtypename: 'room05',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/roomtypes').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     editItem(item) {
@@ -215,9 +192,15 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(rtId) {
+      try {
+        await this.$axios.delete(`/roomtypes/${rtId}`).then((res) => {
+          console.log('Delete completed!')
+        })
+        await location.reload()
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {
@@ -236,12 +219,41 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          rt_name: this.editedItem.rt_name,
+        }
+
+        try {
+          await this.$axios
+            .put(`/roomtypes/${this.editedItem.rt_id}`, sendresdata)
+            .then((res) => {
+              console.log('edit completed!')
+            })
+
+          await location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          rt_name: this.editedItem.rt_name,
+        }
+
+        try {
+          await this.$axios.post('/roomtypes', getresdata).then((res) => {
+            console.log('Insert completed!')
+          })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },
