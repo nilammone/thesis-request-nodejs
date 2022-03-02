@@ -49,43 +49,27 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.roomid"
-                        label="Room_id
-              "
-                        :rules="[(v) => !!v || 'Item is required']"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.roomno"
+                        v-model="editedItem.room_no"
                         label="Room_no"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.roomtypeid"
-                        label="Room_typeid"
-                      ></v-text-field>
-                    </v-col> -->
+
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.roomtypeid"
+                        v-model="editedItem.room_type_id"
                         :items="itemstyperoom"
+                        item-value="rt_id"
+                        item-text="rt_name"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Room_typeid"
                         required
                       ></v-select>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.roomstatus"
-                        label="Room_status"
-                      ></v-text-field>
-                    </v-col> -->
+
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.roomstatus"
+                        v-model="editedItem.room_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Room_status"
@@ -110,7 +94,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.room_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -123,13 +110,7 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -139,14 +120,25 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
+
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       nameRules: [
@@ -154,7 +146,7 @@ export default {
         (v) => v.length <= 10 || 'Room_no must be less than 10 characters',
       ],
       itemsstatus: ['Active', 'In active'],
-      itemstyperoom: ['room01', 'room02', 'room03', 'room04'],
+      itemstyperoom: [],
       headers: [
         {
           text: 'No',
@@ -162,20 +154,19 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Room_id', value: 'roomid', align: 'center' },
         {
           text: 'Room_no',
-          value: 'roomno',
+          value: 'room_no',
           align: 'center',
         },
         {
           text: 'Room_typeid',
-          value: 'roomtypeid',
+          value: 'rt_name',
           align: 'center',
         },
         {
           text: 'Room_status',
-          value: 'roomstatus',
+          value: 'room_status',
           align: 'center',
         },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
@@ -183,16 +174,14 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        roomid: 0,
-        roomno: '',
-        roomtypeid: '',
-        roomstatus: '',
+        room_no: '',
+        room_type_id: '',
+        room_status: '',
       },
       defaultItem: {
-        roomid: 0,
-        roomno: '',
-        roomtypeid: '',
-        roomstatus: '',
+        room_no: '',
+        room_type_id: '',
+        room_status: '',
       },
     }
   },
@@ -214,47 +203,28 @@ export default {
 
   created() {
     this.initialize()
+    this.getDataRoomtypes()
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          roomid: 1,
-          roomno: 'Class01',
-          roomtypeid: 1,
-          roomstatus: 'Active',
-        },
-        {
-          id: 20,
-          roomid: 2,
-          roomno: 'Class02',
-          roomtypeid: 1,
-          roomstatus: 'Active',
-        },
-        {
-          id: 30,
-          roomid: 3,
-          roomno: 'Class03',
-          roomtypeid: 2,
-          roomstatus: 'Active',
-        },
-        {
-          id: 40,
-          roomid: 4,
-          roomno: 'Class04',
-          roomtypeid: 2,
-          roomstatus: 'Active',
-        },
-        {
-          id: 50,
-          roomid: 5,
-          roomno: 'Class05',
-          roomtypeid: 3,
-          roomstatus: 'Active',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/getdataJoinroomtypes').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataRoomtypes() {
+      try {
+        await this.$axios.get('/roomtypes').then((res) => {
+          this.itemstyperoom = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {
@@ -269,9 +239,16 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(roomId) {
+      try {
+        await this.$axios.delete(`/rooms/${roomId}`).then((res) => {
+          console.log('Delete completed!')
+        })
+
+        await location.reload()
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {
@@ -290,12 +267,45 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          room_no: this.editedItem.room_no,
+          room_type_id: this.editedItem.room_type_id,
+          room_status: this.editedItem.room_status,
+        }
+
+        try {
+          await this.$axios
+            .put(`/rooms/${this.editedItem.room_id}`, sendresdata)
+            .then((res) => {
+              console.log('edit completed!')
+            })
+
+          await location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          room_no: this.editedItem.room_no,
+          room_type_id: this.editedItem.room_type_id,
+          room_status: this.editedItem.room_status,
+        }
+
+        try {
+          await this.$axios.post('/rooms', getresdata).then((res) => {
+            console.log('Insert completed!')
+          })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },

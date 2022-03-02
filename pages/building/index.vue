@@ -47,17 +47,17 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.buildingid"
                         label="Building_id
               "
                         :rules="[(v) => !!v || 'Item is required']"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.buildingno"
+                        v-model="editedItem.bd_no"
                         label="Building_no"
                         :rules="nameRules"
                       ></v-text-field>
@@ -70,8 +70,10 @@
                     </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.buildingtypeid"
+                        v-model="editedItem.bd_type_id"
                         :items="itemstype"
+                        item-value="bdt_id"
+                        item-text="bdt_name"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Building_typeid"
                         required
@@ -85,7 +87,7 @@
                     </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.buildingstatus"
+                        v-model="editedItem.bd_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
                         label="Building_status"
@@ -110,7 +112,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.bd_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -123,13 +128,7 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -139,21 +138,32 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
+
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       nameRules: [
         (v) => !!v || 'Building_no is required',
         (v) => v.length <= 10 || 'Building_no must be less than 10 characters',
       ],
-      itemstype: ['build01', 'build02', 'build03', 'build04'],
+      itemstype: [],
       itemsstatus: ['Active', 'In active'],
       headers: [
         {
@@ -162,20 +172,19 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Building_id', value: 'buildingid', align: 'center' },
         {
           text: 'Building_no',
-          value: 'buildingno',
+          value: 'bd_no',
           align: 'center',
         },
         {
           text: 'Building_typeid',
-          value: 'buildingtypeid',
+          value: 'bdt_name',
           align: 'center',
         },
         {
           text: 'Building_status',
-          value: 'buildingstatus',
+          value: 'bd_status',
           align: 'center',
         },
         { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
@@ -183,16 +192,14 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        buildingid: 0,
-        buildingno: '',
-        buildingtypeid: '',
-        buildingstatus: '',
+        bd_no: '',
+        bd_type_id: '',
+        bd_status: '',
       },
       defaultItem: {
-        buildingid: 0,
-        buildingno: '',
-        buildingtypeid: '',
-        buildingstatus: '',
+        bd_no: '',
+        bd_type_id: '',
+        bd_status: '',
       },
     }
   },
@@ -214,47 +221,28 @@ export default {
 
   created() {
     this.initialize()
+    this.getDataBuildingtypes()
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          buildingid: 1,
-          buildingno: 'AC01',
-          buildingtypeid: 1,
-          buildingstatus: 'Active',
-        },
-        {
-          id: 20,
-          buildingid: 2,
-          buildingno: 'AC02',
-          buildingtypeid: 1,
-          buildingstatus: 'Active',
-        },
-        {
-          id: 30,
-          buildingid: 3,
-          buildingno: 'AC03',
-          buildingtypeid: 2,
-          buildingstatus: 'Active',
-        },
-        {
-          id: 40,
-          buildingid: 4,
-          buildingno: 'AC04',
-          buildingtypeid: 2,
-          buildingstatus: 'Active',
-        },
-        {
-          id: 50,
-          buildingid: 5,
-          buildingno: 'AC05',
-          buildingtypeid: 3,
-          buildingstatus: 'Active',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/getdataJoinbuildingtypes').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataBuildingtypes() {
+      try {
+        await this.$axios.get('/buildingtypes').then((res) => {
+          this.itemstype = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {
@@ -269,9 +257,15 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(bdId) {
+      try {
+        await this.$axios.delete(`/buildings/${bdId}`).then((res) => {
+          console.log('Delete completed')
+        })
+        await location.reload()
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {
@@ -290,12 +284,45 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          bd_no: this.editedItem.bd_no,
+          bd_type_id: this.editedItem.bd_type_id,
+          bd_status: this.editedItem.bd_status,
+        }
+
+        try {
+          await this.$axios
+            .put(`/buildings/${this.editedItem.bd_id}`, sendresdata)
+            .then((res) => {
+              console.log('edit completed')
+            })
+
+          await location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          bd_no: this.editedItem.bd_no,
+          bd_type_id: this.editedItem.bd_type_id,
+          bd_status: this.editedItem.bd_status,
+        }
+
+        try {
+          await this.$axios.post('/buildings', getresdata).then((res) => {
+            console.log('Insert completed!')
+          })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },

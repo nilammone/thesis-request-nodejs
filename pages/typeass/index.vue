@@ -96,7 +96,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.tass_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -235,9 +238,15 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(tassId) {
+      try {
+        await this.$axios.delete(`/typeassets/${tassId}`).then((res) => {
+          console.log('Delete completed!')
+        })
+        await location.reload()
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {
@@ -258,17 +267,29 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          tass_name: this.editedItem.tass_name,
+          tass_gass_id: this.editedItem.tass_gass_id,
+          tass_status: this.editedItem.tass_status,
+        }
+
+        try {
+          await this.$axios
+            .put(`/typeassets/${this.editedItem.tass_id}`, sendresdata)
+            .then((res) => {
+              console.log('edit completed!')
+            })
+
+          await location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       } else {
         const getresdata = {
           tass_name: this.editedItem.tass_name,
           tass_gass_id: this.editedItem.tass_gass_id,
           tass_status: this.editedItem.tass_status,
         }
-        // console.log(this.editedItem.tass_name)
-        // console.log(this.editedItem.tass_gass_id)
-        // console.log(this.editedItem.tass_status)
 
         try {
           await this.$axios.post('/typeassets', getresdata).then((res) => {

@@ -82,12 +82,6 @@
                         label="address"
                       ></v-text-field>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.image"
-                        label="image"
-                      ></v-text-field>
-                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-file-input
                         accept="image/*"
@@ -202,7 +196,7 @@ export default {
         },
         { text: 'Firstname', value: 'emp_firstname', align: 'center' },
         { text: 'Lastname', value: 'emp_lastname', align: 'center' },
-        { text: 'Dept_id', value: 'emp_dept_id', align: 'center' },
+        { text: 'Dept_id', value: 'dept_name', align: 'center' },
         { text: 'Contact', value: 'emp_contact', align: 'center' },
         { text: 'Address', value: 'emp_address', align: 'center' },
         { text: 'Image', value: 'emp_image', align: 'center' },
@@ -252,7 +246,7 @@ export default {
     async initialize() {
       // s set api
       try {
-        await this.$axios.get(`/employees`).then((res) => {
+        await this.$axios.get(`/getdataJoindepartments`).then((res) => {
           this.desserts = res.data
         })
       } catch (err) {
