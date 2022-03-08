@@ -19,7 +19,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -165,17 +165,17 @@ export default {
       itemsstatus: ['Admin', 'Auth', 'Inputer'],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Username', value: 'username', align: 'center' },
-        { text: 'Email', value: 'email', align: 'center' },
+        { text: 'ຊື່ຜູ້ໃຊ້', value: 'username', align: 'center' },
+        { text: 'ອີເມວ', value: 'email', align: 'center' },
         // { text: 'Password', value: 'password', align: 'center' },
         // { text: 'Employee_id', value: 'user_emp_id', align: 'center' },
-        { text: 'Status', value: 'isAdmin', align: 'center' },
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ສະຖານະ', value: 'isAdmin', align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,

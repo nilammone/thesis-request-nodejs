@@ -21,7 +21,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -51,126 +51,106 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.assetno"
-                        label="Asset_no
+                        v-model="editedItem.asset_no"
+                        label="ລະຫັດຊັບສິນ
               "
                         :rules="noRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.assetname"
-                        label="Asset_name"
+                        v-model="editedItem.asset_name"
+                        label="ຊື່ຊັບສິນ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assetgroupid"
-                        label="Asset_groupid"
-                      ></v-text-field>
-                    </v-col> -->
-                    <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.assetgroupid"
+                        v-model="editedItem.asset_group_id"
                         :items="itemsgroup"
+                        item-value="gass_id"
+                        item-text="gass_name"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Asset_group"
+                        label="ຫມວດຊັບສິນ"
                         required
                       ></v-select>
-                    </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assettypeid"
-                        label="Asset_typeid"
-                      ></v-text-field>
                     </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.assettypeid"
+                        v-model="editedItem.asset_group_id"
+                        :items="itemsgroup"
+                        item-value="gass_id"
+                        item-text="gass_name"
+                        @change="getidgroupasset"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="ຫມວດຊັບສິນ"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.asset_type_id"
                         :items="itemstype"
+                        item-value="tass_id"
+                        item-text="tass_name"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Asset_type"
+                        label="ປະເພດຊັບສິນ"
                         required
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.assetstartdate"
-                        label="Asset_start_date"
+                        v-model="editedItem.asset_startdate"
+                        label="ວັນທີປ້ອນຂໍ້ມູນຊັບສິນ"
                         type="date"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.assetenddate"
-                        label="Asset_end_date"
+                        v-model="editedItem.asset_enddate"
+                        label="ວັນທີຫມົດອາຍຸຂອງຊັບສິນ"
                         type="date"
                       ></v-text-field>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assetsuppilerid"
-                        label="Asset_suppilerid"
-                      ></v-text-field>
-                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.assetsuppilerid"
+                        v-model="editedItem.asset_sp_id"
                         :items="itemssuppiler"
+                        item-value="sp_id"
+                        item-text="sp_name"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Asset_suppiler"
+                        label="ຜູ້ສະຫນອງ"
                         required
                       ></v-select>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assetroomid"
-                        label="Asset_roomid"
-                      ></v-text-field>
-                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.assetroomid"
+                        v-model="editedItem.asset_room_id"
                         :items="itemsroom"
+                        item-value="room_id"
+                        item-text="room_no"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Asset_room"
+                        label="ຫ້ອງ"
                         required
                       ></v-select>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assetbuildingid"
-                        label="Asset_buildingid"
-                      ></v-text-field>
-                    </v-col> -->
                     <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.assetbuildingid"
+                        v-model="editedItem.asset_building_id"
                         :items="itemsbuild"
+                        item-value="bd_id"
+                        item-text="bd_no"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Asset_building"
+                        label="ຕຶກ"
                         required
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assetuserid"
-                        label="Asset_user"
-                      ></v-text-field>
-                    </v-col>
-                    <!-- <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.assetstatus"
-                        label="Asset_status"
-                      ></v-text-field>
-                    </v-col> -->
-                    <v-col cols="12" sm="6" md="6">
                       <v-select
-                        v-model="editedItem.assetstatus"
+                        v-model="editedItem.asset_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Asset_status"
+                        label="ສະຖານະ"
                         required
                       ></v-select>
                     </v-col>
@@ -181,9 +161,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Cancel
+                  ຍົກເລີກ
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> ບັນທຶກ </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -192,7 +172,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.asset_id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -205,13 +188,7 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -221,14 +198,25 @@
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
     </v-data-table>
+    <!-- s alert -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
+    <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
+
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       search: '',
+      snackbar: false,
+      carouselInterval: null,
+      text: 'Success!.',
       dialog: false,
       dialogDelete: false,
       noRules: [
@@ -239,135 +227,128 @@ export default {
         (v) => !!v || 'Asset_name is required',
         (v) => v.length <= 30 || 'Asset_name must be less than 30 characters',
       ],
-      itemsgroup: ['Table', 'Vehicles', 'Chair', 'Cabinet', 'Computer'],
-      itemstype: ['Table01', 'Table02'],
-      itemssuppiler: ['Suppiler01', 'Suppiler02'],
-      itemsroom: ['Class01', 'Class02'],
-      itemsbuild: ['AC01', 'AC02'],
+      itemsgroup: [],
+      itemstype: [],
+      itemssuppiler: [],
+      itemsroom: [],
+      itemsbuild: [],
       itemsstatus: ['Active', 'In active'],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Asset_id', value: 'assetid', align: 'center' },
         {
-          text: 'Asset_no',
-          value: 'assetno',
+          text: 'ລະຫັດຊັບສິນ',
+          value: 'asset_no',
           align: 'center',
         },
         {
-          text: 'Asset_name',
-          value: 'assetname',
+          text: 'ຊື່ຊັບສິນ',
+          value: 'asset_name',
           align: 'center',
         },
         {
-          text: 'Asset_group',
-          value: 'assetgroupid',
+          text: 'ຫມວດຊັບສິນ',
+          value: 'gass_name',
           align: 'center',
         },
         {
-          text: 'Asset_type',
-          value: 'assettypeid',
+          text: 'ປະເພດຊັບສິນ',
+          value: 'tass_name',
           align: 'center',
         },
         {
-          text: 'Asset_start_date',
-          value: 'assetstartdate',
+          text: 'ມື້ປ້ອນຂໍ້ມູນ',
+          value: 'asset_startdate',
           align: 'center',
         },
         {
-          text: 'Asset_end_date',
-          value: 'assetenddate',
+          text: 'ມື້ຫມົດອາຍຸຂອງຊັບສິນ',
+          value: 'asset_enddate',
           align: 'center',
         },
         {
-          text: 'Asset_suppiler',
-          value: 'assetsuppilerid',
+          text: 'ຜູ້ສະຫນອງ',
+          value: 'sp_name',
           align: 'center',
         },
         {
-          text: 'Asset_room',
-          value: 'assetroomid',
+          text: 'ຫ້ອງ',
+          value: 'room_no',
           align: 'center',
         },
         {
-          text: 'Asset_building',
-          value: 'assetbuildingid',
+          text: 'ຕຶກ',
+          value: 'bd_no',
           align: 'center',
         },
         {
-          text: 'Asset_user',
-          value: 'assetuserid',
+          text: 'ພາກສ່ວນຮັບຜິດຊອບ',
+          value: 'username',
           align: 'center',
         },
         {
-          text: 'Asset_status',
-          value: 'assetstatus',
+          text: 'ສະຖານະ',
+          value: 'asset_status',
           align: 'center',
         },
         {
-          text: 'Asset_create_at',
-          value: 'assetcreateat',
+          text: 'ວັນທີເພີ່ມຊັບສິນ',
+          value: 'asset_create_at',
           align: 'center',
         },
         {
-          text: 'Asset_move_at',
-          value: 'assetmoveat',
+          text: 'ວັນທີແກ້ໄຂຊັບສິນ',
+          value: 'asset_move_at',
           align: 'center',
         },
         {
-          text: 'Asset_clearing_at',
-          value: 'assetclearingat',
+          text: 'ວັນທີລ້າງຊັບສິນ',
+          value: 'asset_clearing_at',
           align: 'center',
         },
 
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        assetid: 0,
-        assetno: '',
-        assetname: '',
-        assetgroupid: '',
-        assettypeid: '',
-        assetstartdate: '',
-        assetenddate: '',
-        assetsuppilerid: '',
-        assetroomid: '',
-        assetbuildingid: '',
-        assetuserid: '',
-        assetstatus: '',
-        assetcreateat: '',
-        assetmoveat: '',
-        assetclearingat: '',
+        asset_no: '',
+        asset_name: '',
+        asset_group_id: '',
+        asset_type_id: '',
+        asset_startdate: '',
+        asset_enddate: '',
+        asset_sp_id: '',
+        asset_room_id: '',
+        asset_building_id: '',
+        asset_user_id: '',
+        asset_status: '',
       },
       defaultItem: {
-        assetid: 0,
-        assetno: '',
-        assetname: '',
-        assetgroupid: '',
-        assettypeid: '',
-        assetstartdate: '',
-        assetenddate: '',
-        assetsuppilerid: '',
-        assetroomid: '',
-        assetbuildingid: '',
-        assetuserid: '',
-        assetstatus: '',
-        assetcreateat: '',
-        assetmoveat: '',
-        assetclearingat: '',
+        asset_no: '',
+        asset_name: '',
+        asset_group_id: '',
+        asset_type_id: '',
+        asset_startdate: '',
+        asset_enddate: '',
+        asset_sp_id: '',
+        asset_room_id: '',
+        asset_building_id: '',
+        asset_user_id: '',
+        asset_status: '',
       },
     }
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add Asset' : 'Edit Asset'
+      return this.editedIndex === -1
+        ? 'ເພີ່ມ ຂໍ້ມູນຊັບສິນ'
+        : 'ແກ້ໄຂ ຂໍ້ມູນຊັບສິນ'
     },
   },
 
@@ -382,102 +363,83 @@ export default {
 
   created() {
     this.initialize()
+    this.getDataGroupassets()
+    // this.getDataTypeassets()
+    this.getDataSuppilers()
+    this.getDataRooms()
+    this.getDataBuildings()
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 10,
-          assetid: 1,
-          assetno: 'AS01',
-          assetname: 'asset01',
-          assetgroupid: 1,
-          assettypeid: 2,
-          assetstartdate: '2021-01-01',
-          assetenddate: '2021-01-31',
-          assetsuppilerid: 2,
-          assetroomid: 2,
-          assetbuildingid: 2,
-          assetuserid: 'user01',
-          assetstatus: 'Y',
-          assetcreateat: '2021-01-01 10:00:00',
-          assetmoveat: '',
-          assetclearingat: '',
-        },
-        {
-          id: 20,
-          assetid: 2,
-          assetno: 'AS02',
-          assetname: 'asset02',
-          assetgroupid: 1,
-          assettypeid: 2,
-          assetstartdate: '2021-01-01',
-          assetenddate: '2021-01-31',
-          assetsuppilerid: 2,
-          assetroomid: 2,
-          assetbuildingid: 2,
-          assetuserid: 'user01',
-          assetstatus: 'Y',
-          assetcreateat: '2021-01-01 10:00:00',
-          assetmoveat: '',
-          assetclearingat: '',
-        },
-        {
-          id: 30,
-          assetid: 3,
-          assetno: 'AS03',
-          assetname: 'asset03',
-          assetgroupid: 1,
-          assettypeid: 2,
-          assetstartdate: '2021-01-01',
-          assetenddate: '2021-01-31',
-          assetsuppilerid: 2,
-          assetroomid: 2,
-          assetbuildingid: 2,
-          assetuserid: 'user01',
-          assetstatus: 'Y',
-          assetcreateat: '2021-01-01 10:00:00',
-          assetmoveat: '',
-          assetclearingat: '',
-        },
-        {
-          id: 40,
-          assetid: 4,
-          assetno: 'AS04',
-          assetname: 'asset04',
-          assetgroupid: 1,
-          assettypeid: 2,
-          assetstartdate: '2021-01-01',
-          assetenddate: '2021-01-31',
-          assetsuppilerid: 2,
-          assetroomid: 2,
-          assetbuildingid: 2,
-          assetuserid: 'user01',
-          assetstatus: 'Y',
-          assetcreateat: '2021-01-01 10:00:00',
-          assetmoveat: '',
-          assetclearingat: '',
-        },
-        {
-          id: 50,
-          assetid: 5,
-          assetno: 'AS05',
-          assetname: 'asset05',
-          assetgroupid: 1,
-          assettypeid: 2,
-          assetstartdate: '2021-01-01',
-          assetenddate: '2021-01-31',
-          assetsuppilerid: 2,
-          assetroomid: 2,
-          assetbuildingid: 2,
-          assetuserid: 'user01',
-          assetstatus: 'Y',
-          assetcreateat: '2021-01-01 10:00:00',
-          assetmoveat: '',
-          assetclearingat: '',
-        },
-      ]
+    async initialize() {
+      try {
+        await this.$axios.get('/getdataJoinmore').then((res) => {
+          this.desserts = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataGroupassets() {
+      try {
+        await this.$axios.get('/getGroupassetOnlyActive').then((res) => {
+          this.itemsgroup = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    // async getDataTypeassets() {
+    //   try {
+    //     await this.$axios.get('/getTypeassetOnlyActive').then((res) => {
+    //       this.itemstype = res.data
+    //     })
+    //   } catch (err) {
+    //     console.log(err)
+    //   }
+    // },
+
+    // check and get group asset id
+    async getidgroupasset(gass_id) {
+      try {
+        await this.$axios.get(`getByGroupassetId/${gass_id}`).then((res) => {
+          this.itemstype = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataSuppilers() {
+      try {
+        await this.$axios.get('/suppilers').then((res) => {
+          this.itemssuppiler = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataRooms() {
+      try {
+        await this.$axios.get('/getRoomOnlyActive').then((res) => {
+          this.itemsroom = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataBuildings() {
+      try {
+        await this.$axios.get('/getBuildingOnlyActive').then((res) => {
+          this.itemsbuild = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {
@@ -492,9 +454,15 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(assetId) {
+      try {
+        await this.$axios.delete(`/assets/${assetId}`).then((res) => {
+          console.log('Delete completed!')
+        })
+        await location.reload()
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {
@@ -513,12 +481,61 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // console.log(this.desserts[0].id)
+        const sendresdata = {
+          asset_no: this.editedItem.asset_no,
+          asset_name: this.editedItem.asset_name,
+          asset_group_id: this.editedItem.asset_group_id,
+          asset_type_id: this.editedItem.asset_type_id,
+          asset_startdate: this.editedItem.asset_startdate,
+          asset_enddate: this.editedItem.asset_enddate,
+          asset_sp_id: this.editedItem.asset_sp_id,
+          asset_room_id: this.editedItem.asset_room_id,
+          asset_building_id: this.editedItem.asset_building_id,
+          asset_user_id: this.$auth.user.id,
+          asset_status: this.editedItem.asset_status,
+        }
+
+        try {
+          await this.$axios
+            .put(`/assets/${this.editedItem.asset_id}`, sendresdata)
+            .then((res) => {
+              console.log('edit completed!')
+            })
+
+          await location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       } else {
-        this.desserts.push(this.editedItem)
+        const getresdata = {
+          asset_no: this.editedItem.asset_no,
+          asset_name: this.editedItem.asset_name,
+          asset_group_id: this.editedItem.asset_group_id,
+          asset_type_id: this.editedItem.asset_type_id,
+          asset_startdate: this.editedItem.asset_startdate,
+          asset_enddate: this.editedItem.asset_enddate,
+          asset_sp_id: this.editedItem.asset_sp_id,
+          asset_room_id: this.editedItem.asset_room_id,
+          asset_building_id: this.editedItem.asset_building_id,
+          asset_user_id: this.$auth.user.id,
+          asset_status: this.editedItem.asset_status,
+        }
+
+        try {
+          await this.$axios.post('/assets', getresdata).then((res) => {
+            console.log('Insert completed!')
+          })
+
+          this.snackbar = true
+
+          this.carouselInterval = setInterval(() => {
+            location.reload()
+          }, 1800)
+        } catch (err) {
+          console.log(err)
+        }
       }
       this.close()
     },

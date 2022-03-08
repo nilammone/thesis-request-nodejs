@@ -21,7 +21,7 @@
         </v-col>
         <v-col md="3">
           <v-card class="mx-auto" max-width="100%">
-            <v-img src="/house.webp" height="200px"></v-img>
+            <v-img src="/bb20220307.jpg" height="200px"></v-img>
 
             <v-row align="center" justify="end">
               <v-col md="8"
@@ -35,7 +35,7 @@
         </v-col>
         <v-col md="3">
           <v-card class="mx-auto" max-width="100%">
-            <v-img src="/room.webp" height="200px"></v-img>
+            <v-img src="/room20220307.jpg" height="200px"></v-img>
 
             <v-row align="center" justify="end">
               <v-col md="8"

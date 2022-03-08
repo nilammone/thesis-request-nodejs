@@ -5,6 +5,12 @@
         <div class="wrap-login100">
           <div style="margin-top: 30px">
             <v-img
+              src="/kvs.png"
+              max-height="120"
+              max-width="120"
+              style="margin-left: 40px"
+            ></v-img>
+            <v-img
               src="/assetlogo.png"
               max-height="320"
               max-width="420"
@@ -17,12 +23,12 @@
               class="wrap-input100 validate-input m-b-26"
               data-validate="email is required"
             >
-              <span class="label-input100">Email</span>
+              <span class="label-input100">ອີເມວ</span>
               <input
                 class="input100"
                 type="email"
                 v-model="email"
-                placeholder="Enter email"
+                placeholder="ປ້ອນ ອີເມວ"
               />
               <span class="focus-input100"></span>
             </div>
@@ -31,12 +37,12 @@
               class="wrap-input100 validate-input m-b-18"
               data-validate="Password is required"
             >
-              <span class="label-input100">Password</span>
+              <span class="label-input100">ລະຫັດຜ່ານ</span>
               <input
                 class="input100"
                 type="password"
                 v-model="password"
-                placeholder="Enter password"
+                placeholder="ປ້ອນລະຫັດຜ່ານ"
               />
               <span class="focus-input100"></span>
             </div>
@@ -64,11 +70,11 @@
                 onclick="this.parentElement.style.display='none';"
                 >&times;</span
               >
-              User or Password Invalid...!
+              email ຫລື password ຂອງທ່ານບໍ່ຖືກຕ້ອງ!
             </div>
 
             <div class="container-login100-form-btn" style="margin-top: 20px">
-              <button class="login100-form-btn">Login</button>
+              <button class="login100-form-btn">ເຂົ້າລະບົບ</button>
             </div>
           </form>
         </div>
@@ -172,7 +178,7 @@ export default {
             password: this.password,
           },
         })
-        .then((response) => console.log(response))
+        .then((response) => console.log('login completed!'))
         .catch((error) => {
           console.log(error)
           this.cherror = true
@@ -208,6 +214,8 @@ html {
 
 /* --------------------------------------------*/
 .alert {
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
+  font-size: 13px;
   padding: 20px;
   background-color: #f44336;
   color: white;
@@ -230,7 +238,7 @@ html {
 
 /*---------------------------------------------*/
 a {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 14px;
   line-height: 1.7;
   color: #666666;
@@ -477,7 +485,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 15px;
   color: #808080;
   line-height: 1.2;
@@ -491,7 +499,7 @@ iframe {
 
 /*---------------------------------------------*/
 .input100 {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;
@@ -550,7 +558,7 @@ input.input100 {
 }
 
 .label-checkbox100 {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 13px;
   color: #999999;
   line-height: 1.4;
@@ -563,7 +571,7 @@ input.input100 {
 
 .label-checkbox100::before {
   content: '\f00c';
-  font-family: FontAwesome;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 13px;
   color: transparent;
 
@@ -619,7 +627,7 @@ input.input100 {
   background-color: #57b846;
   border-radius: 25px;
 
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -682,7 +690,7 @@ input.input100 {
   right: 2px;
   pointer-events: none;
 
-  font-family: Poppins-Medium;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
@@ -699,7 +707,7 @@ input.input100 {
 
 .alert-validate::after {
   content: '\f06a';
-  font-family: FontAwesome;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   display: block;
   position: absolute;
   color: #c80000;

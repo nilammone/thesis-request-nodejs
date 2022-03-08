@@ -174,8 +174,12 @@
       <!-- button menu -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <nuxt-link to="/">
+        <v-img src="/kvs.png" max-height="50" max-width="50"></v-img>
+      </nuxt-link>
+      <nuxt-link to="/">
         <v-img src="/assetlogo.png" max-height="120" max-width="220"></v-img>
       </nuxt-link>
+
       <v-spacer />
       <v-text-field
         class="mt-7 d-none d-md-flex shrink"

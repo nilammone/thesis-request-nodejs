@@ -19,7 +19,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -50,7 +50,7 @@
                     <v-col cols="12" sm="12" md="12">
                       <v-text-field
                         v-model="editedItem.bdt_name"
-                        label="Building_type_name"
+                        label="ປະເພດຕຶກ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
@@ -61,9 +61,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Cancel
+                  ຍົກເລີກ
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> ບັນທຶກ </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -127,18 +127,18 @@ export default {
       ],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
         {
-          text: 'Building_type_name',
+          text: 'ປະເພດຕຶກ',
           value: 'bdt_name',
           align: 'center',
         },
 
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -154,8 +154,8 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1
-        ? 'Add Type building'
-        : 'Edit Type Building'
+        ? 'ເພີ່ມຂໍ້ມູນປະເພດຕຶກ'
+        : 'ແກ້ໄຂຂໍ້ມູນປະເພດຕຶກ'
     },
   },
 

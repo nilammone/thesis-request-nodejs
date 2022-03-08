@@ -21,7 +21,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -52,7 +52,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.emp_firstname"
-                        label="firstname
+                        label="ຊື່
               "
                         :rules="nameRules"
                       ></v-text-field>
@@ -60,33 +60,44 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.emp_lastname"
-                        label="lastname"
+                        label="ນາມສະກຸນ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <!-- <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.emp_dept_id"
                         label="deptid"
                       ></v-text-field>
+                    </v-col> -->
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
+                        v-model="editedItem.emp_dept_id"
+                        :items="itemsemps"
+                        item-value="dept_id"
+                        item-text="dept_name"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="ພະແນກ"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.emp_contact"
-                        label="contact"
+                        label="ຕິດຕໍ່"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.emp_address"
-                        label="address"
+                        label="ທີ່ຢູ່"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-file-input
                         accept="image/*"
                         v-model="editedItem.image"
-                        label="Image"
+                        label="ຮູບພາບ"
                       ></v-file-input>
                     </v-col>
                   </v-row>
@@ -96,9 +107,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Cancel
+                  ຍົກເລີກ
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> ບັນທຶກ </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -187,20 +198,21 @@ export default {
         (v) => !!v || 'required',
         (v) => v.length <= 30 || 'Must be less than 30 characters',
       ],
+      itemsemps: [],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Firstname', value: 'emp_firstname', align: 'center' },
-        { text: 'Lastname', value: 'emp_lastname', align: 'center' },
-        { text: 'Dept_id', value: 'dept_name', align: 'center' },
-        { text: 'Contact', value: 'emp_contact', align: 'center' },
-        { text: 'Address', value: 'emp_address', align: 'center' },
-        { text: 'Image', value: 'emp_image', align: 'center' },
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຊື່', value: 'emp_firstname', align: 'center' },
+        { text: 'ນາມສະກຸນ', value: 'emp_lastname', align: 'center' },
+        { text: 'ພະແນກ', value: 'dept_name', align: 'center' },
+        { text: 'ຕິດຕໍ່', value: 'emp_contact', align: 'center' },
+        { text: 'ທີ່ຢູ່', value: 'emp_address', align: 'center' },
+        { text: 'ຮູບພາບ', value: 'emp_image', align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -225,7 +237,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add employee' : 'Edit employee'
+      return this.editedIndex === -1 ? 'ເພີ່ມ ຂໍ້ມູນພະນັກງານ' : 'ແກ້ໄຂ ຂໍ້ມູນພະນັກງານ'
     },
   },
 
@@ -240,6 +252,7 @@ export default {
 
   created() {
     this.initialize()
+    this.getDatadepartments()
   },
 
   methods: {
@@ -253,6 +266,17 @@ export default {
         console.log(err)
       }
       // e set api
+    },
+
+    // get data department
+    async getDatadepartments() {
+      try {
+        await this.$axios.get('/departments').then((res) => {
+          this.itemsemps = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     editItem(item) {

@@ -19,7 +19,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -50,7 +50,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.room_no"
-                        label="Room_no"
+                        label="ລະຫັດຫ້ອງ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
@@ -62,7 +62,7 @@
                         item-value="rt_id"
                         item-text="rt_name"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Room_typeid"
+                        label="ປະເພດຫ້ອງ"
                         required
                       ></v-select>
                     </v-col>
@@ -72,7 +72,7 @@
                         v-model="editedItem.room_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Room_status"
+                        label="ສະຖານະ"
                         required
                       ></v-select>
                     </v-col>
@@ -149,27 +149,27 @@ export default {
       itemstyperoom: [],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
         {
-          text: 'Room_no',
+          text: 'ລະຫັດຫ້ອງ',
           value: 'room_no',
           align: 'center',
         },
         {
-          text: 'Room_typeid',
+          text: 'ປະເພດຫ້ອງ',
           value: 'rt_name',
           align: 'center',
         },
         {
-          text: 'Room_status',
+          text: 'ສະຖານະ',
           value: 'room_status',
           align: 'center',
         },
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -188,7 +188,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add Room' : 'Edit Room'
+      return this.editedIndex === -1 ? 'ເພີ່ມຂໍ້ມູນຫ້ອງ' : 'ແກ້ໄຂຂໍ້ມູນຫ້ອງ'
     },
   },
 

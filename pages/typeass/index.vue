@@ -21,7 +21,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -52,7 +52,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.tass_name"
-                        label="Type_asset_name"
+                        label="ປະເພດຊັບສິນ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
@@ -64,7 +64,7 @@
                         item-value="gass_id"
                         item-text="gass_name"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Type_asset_groupid"
+                        label="ຫມວດຊັບສິນ"
                         required
                       ></v-select>
                     </v-col>
@@ -74,7 +74,7 @@
                         v-model="editedItem.tass_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Type_asset_status"
+                        label="ສະຖານະ"
                         required
                       ></v-select>
                     </v-col>
@@ -85,9 +85,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Cancel
+                  ຍົກເລີກ
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> ບັນທຶກ </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -152,23 +152,23 @@ export default {
       itemsgroup: [],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
-        { text: 'Type_asset_name', value: 'tass_name', align: 'center' },
+        { text: 'ປະເພດຊັບສິນ', value: 'tass_name', align: 'center' },
         {
-          text: 'Type_asset_groupid',
+          text: 'ຫມວດຊັບສິນ',
           value: 'gass_name',
           align: 'center',
         },
         {
-          text: 'Type_asset_status',
+          text: 'ສະຖານະ',
           value: 'tass_status',
           align: 'center',
         },
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -187,7 +187,9 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add Type asset' : 'Edit Type asset'
+      return this.editedIndex === -1
+        ? 'ເພີ່ມ ຂໍ້ມູນປະເພດຊັບສິນ'
+        : 'ແກ້ໄຂ ຂໍ້ມູນປະເພດຊັບສິນ'
     },
   },
 

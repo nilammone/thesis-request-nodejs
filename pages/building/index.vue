@@ -19,7 +19,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -58,7 +58,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.bd_no"
-                        label="Building_no"
+                        label="ລະຫັດຕຶກ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
@@ -75,7 +75,7 @@
                         item-value="bdt_id"
                         item-text="bdt_name"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Building_typeid"
+                        label="ປະເພດຕຶກ"
                         required
                       ></v-select>
                     </v-col>
@@ -90,7 +90,7 @@
                         v-model="editedItem.bd_status"
                         :items="itemsstatus"
                         :rules="[(v) => !!v || 'Item is required']"
-                        label="Building_status"
+                        label="ສະຖານະ"
                         required
                       ></v-select>
                     </v-col>
@@ -167,27 +167,27 @@ export default {
       itemsstatus: ['Active', 'In active'],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
         {
-          text: 'Building_no',
+          text: 'ລະຫັດຕຶກ',
           value: 'bd_no',
           align: 'center',
         },
         {
-          text: 'Building_typeid',
+          text: 'ປະເພດຕຶກ',
           value: 'bdt_name',
           align: 'center',
         },
         {
-          text: 'Building_status',
+          text: 'ສະຖານະ',
           value: 'bd_status',
           align: 'center',
         },
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -206,7 +206,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add Building' : 'Edit Building'
+      return this.editedIndex === -1 ? 'ເພີ່ມຂໍ້ມູນຕຶກ' : 'ແກ້ໄຂຂໍ້ມູນຕຶກ'
     },
   },
 

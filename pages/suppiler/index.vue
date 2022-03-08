@@ -21,7 +21,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="ຄົ້ນຫາ"
             single-line
             hide-details
             class="mr-5"
@@ -52,7 +52,7 @@
                     <v-col cols="12" sm="12" md="12">
                       <v-text-field
                         v-model="editedItem.sp_name"
-                        label="Suppiler_name"
+                        label="ຊື່ຜູ້ສະຫນອງ"
                         :rules="nameRules"
                       ></v-text-field>
                     </v-col>
@@ -63,9 +63,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Cancel
+                  ຍັກເລີກ
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> ບັນທຶກ </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -128,18 +128,18 @@ export default {
       ],
       headers: [
         {
-          text: 'No',
+          text: 'ລຳດັບ',
           align: 'center',
           sortable: false,
           value: 'numlist',
         },
         {
-          text: 'Suppiler_name',
+          text: 'ຊື່ຜູ້ສະຫນອງ',
           value: 'sp_name',
           align: 'center',
         },
 
-        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -154,7 +154,9 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add Suppiler' : 'Edit Suppiler'
+      return this.editedIndex === -1
+        ? 'ເພີ່ມ ຂໍ້ມູນຜູ້ສະຫນອງ'
+        : 'ແກ້ໄຂ ຂໍ້ມູນຜູ້ສະຫນອງ'
     },
   },
 
