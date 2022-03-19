@@ -186,6 +186,8 @@ export default {
     },
     // e add new
 
+    // validate email
+
     // async submit() {g
     // validate() {
     //   this.$refs.form.validate()

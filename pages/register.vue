@@ -18,8 +18,15 @@
             ></v-img>
           </div>
 
-          <div style="text-align: center; margin-top: 20px; color: #808080">
-            <h3>Register</h3>
+          <div
+            style="
+              text-align: center;
+              margin-top: 20px;
+              color: #808080;
+              font-family: NotoSerifLao-Regular, Roboto-Regular;
+            "
+          >
+            <h3><u> ລົງທະບຽນຜູ້ໃຊ້ງານລະບົບ </u></h3>
           </div>
 
           <form class="login100-form validate-form" @submit.prevent="submit">
@@ -41,13 +48,13 @@
               class="wrap-input100 validate-input m-b-26"
               data-validate="username is required"
             >
-              <span class="label-input100">username</span>
+              <span class="label-input100">ຊື່ຜູ້ໃຊ້ງານ</span>
               <input
                 class="input100"
                 type="text"
                 v-model="username"
                 required
-                placeholder="Enter username"
+                placeholder="ປ້ອນຊື່ຜູ້ໃຊ້ງານ"
               />
               <span class="focus-input100"></span>
             </div>
@@ -56,13 +63,13 @@
               class="wrap-input100 validate-input m-b-26"
               data-validate="email is required"
             >
-              <span class="label-input100">Email</span>
+              <span class="label-input100">ອີເມວ</span>
               <input
                 class="input100"
                 type="email"
                 required
                 v-model="email"
-                placeholder="Enter email"
+                placeholder="ປ້ອນອີເມວ"
               />
               <span class="focus-input100"></span>
             </div>
@@ -71,13 +78,13 @@
               class="wrap-input100 validate-input m-b-18"
               data-validate="Password is required"
             >
-              <span class="label-input100">Password</span>
+              <span class="label-input100">ລະຫັດຜ່ານ</span>
               <input
                 class="input100"
                 type="password"
                 required
                 v-model="password"
-                placeholder="Enter password"
+                placeholder="ປ້ອນລະຫັດຜ່ານ"
               />
               <span class="focus-input100"></span>
             </div>
@@ -86,14 +93,23 @@
               class="wrap-input100 validate-input m-b-26"
               data-validate="employee_name is required"
             >
-              <span class="label-input100">employee_name</span>
-              <input
+              <span class="label-input100">ເລືອກພະນັກງານ</span>
+              <!-- <input
                 class="input100"
                 type="text"
                 v-model="empname"
                 required
                 placeholder="Enter Employee Name"
-              />
+              /> -->
+              <select class="input100select" v-model="empname">
+                <option
+                  v-for="item in itemsemp"
+                  :key="item.emp_id"
+                  :value="item.emp_id"
+                >
+                  {{ item.emp_firstname }}
+                </option>
+              </select>
               <span class="focus-input100"></span>
             </div>
 
@@ -130,7 +146,7 @@
             </div>
 
             <div class="container-login100-form-btn" style="margin-top: 20px">
-              <button class="login100-form-btn">Register</button>
+              <button class="login100-form-btn">ລົງທະບຽນ</button>
             </div>
           </form>
         </div>
@@ -205,6 +221,7 @@ export default {
     // password_confirm: '',
     valid: true,
     name: '',
+    itemsemp: [],
     nameRules: [
       (v) => !!v || 'Name is required',
       (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -221,6 +238,7 @@ export default {
 
   created() {
     // console.log("I'm created!")
+    this.getDataEmployees()
   },
 
   methods: {
@@ -234,6 +252,16 @@ export default {
             this.$router.push('/login')
           })
           .catch((error) => console.log(error))
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataEmployees() {
+      try {
+        await this.$axios.get('/employees').then((res) => {
+          this.itemsemp = res.data
+        })
       } catch (err) {
         console.log(err)
       }
@@ -265,7 +293,7 @@ html {
 
 /*---------------------------------------------*/
 a {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 14px;
   line-height: 1.7;
   color: #666666;
@@ -512,7 +540,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 15px;
   color: #808080;
   line-height: 1.2;
@@ -526,10 +554,22 @@ iframe {
 
 /*---------------------------------------------*/
 .input100 {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;
+
+  display: block;
+  width: 100%;
+  background: transparent;
+  padding: 0 5px;
+}
+
+.input100select {
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
+  font-size: 15px;
+  color: #555555;
+  line-height: 2;
 
   display: block;
   width: 100%;
@@ -585,7 +625,7 @@ input.input100 {
 }
 
 .label-checkbox100 {
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 13px;
   color: #999999;
   line-height: 1.4;
@@ -654,7 +694,7 @@ input.input100 {
   background-color: #57b846;
   border-radius: 25px;
 
-  font-family: Poppins-Regular;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -717,7 +757,7 @@ input.input100 {
   right: 2px;
   pointer-events: none;
 
-  font-family: Poppins-Medium;
+  font-family: NotoSerifLao-Regular, Roboto-Regular;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;

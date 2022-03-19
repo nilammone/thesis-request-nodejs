@@ -121,7 +121,7 @@ export default {
       dialogDelete: false,
       nameRules: [
         (v) => !!v || 'Dept_name is required',
-        (v) => v.length <= 30 || 'Dept_name must be less than 30 characters',
+        (v) => v.length <= 100 || 'Dept_name must be less than 100 characters',
       ],
       headers: [
         {

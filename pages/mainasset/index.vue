@@ -287,7 +287,7 @@ export default {
         },
         {
           text: 'ພາກສ່ວນຮັບຜິດຊອບ',
-          value: 'username',
+          value: 'v1deptname',
           align: 'center',
         },
         {
