@@ -201,7 +201,8 @@ export default {
         await this.$axios.delete(`/suppilers/${spId}`).then((res) => {
           console.log('Delete completed!')
         })
-        await location.reload()
+        this.initialize()
+        this.dialogDelete = false
       } catch (error) {}
     },
 
@@ -234,7 +235,7 @@ export default {
               console.log('edit completed!')
             })
 
-          await location.reload()
+          this.initialize()
         } catch (error) {
           console.log(error)
         }
@@ -251,11 +252,13 @@ export default {
           console.log(error)
         }
 
-        this.snackbar = true
-
         this.carouselInterval = setInterval(() => {
-          location.reload()
-        }, 1800)
+          this.snackbar = true
+        }, 800)
+
+        this.initialize()
+
+        this.snackbar = false
       }
       this.close()
     },

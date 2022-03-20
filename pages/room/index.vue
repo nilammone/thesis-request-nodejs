@@ -245,7 +245,8 @@ export default {
           console.log('Delete completed!')
         })
 
-        await location.reload()
+        this.initialize()
+        this.dialogDelete = false
       } catch (err) {
         console.log(err)
       }
@@ -282,7 +283,7 @@ export default {
               console.log('edit completed!')
             })
 
-          await location.reload()
+          this.initialize()
         } catch (err) {
           console.log(err)
         }
@@ -298,11 +299,13 @@ export default {
             console.log('Insert completed!')
           })
 
-          this.snackbar = true
-
           this.carouselInterval = setInterval(() => {
-            location.reload()
-          }, 1800)
+            this.snackbar = true
+          }, 800)
+
+          this.initialize()
+
+          this.snackbar = false
         } catch (err) {
           console.log(err)
         }

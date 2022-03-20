@@ -169,7 +169,7 @@
     </v-data-table>
 
     <!-- s alert -->
-    <v-snackbar v-model="snackbar" absolute bottom color="success" outlined>
+    <!-- <v-snackbar v-model="snackbar" absolute bottom color="success" outlined>
       {{ text }}
 
       <template v-slot:action="{ attrs }">
@@ -177,13 +177,18 @@
           <v-icon>mdi-close-circle</v-icon>
         </v-btn>
       </template>
-    </v-snackbar>
+    </v-snackbar> -->
+    <SuccessAlert :snackbar="snackbar"></SuccessAlert>
     <!-- e alert -->
   </div>
 </template>
 
 <script>
+import SuccessAlert from '@/components/SuccessAlert'
 export default {
+  components: {
+    SuccessAlert,
+  },
   data() {
     return {
       carouselInterval: null,
@@ -237,7 +242,9 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'ເພີ່ມ ຂໍ້ມູນພະນັກງານ' : 'ແກ້ໄຂ ຂໍ້ມູນພະນັກງານ'
+      return this.editedIndex === -1
+        ? 'ເພີ່ມ ຂໍ້ມູນພະນັກງານ'
+        : 'ແກ້ໄຂ ຂໍ້ມູນພະນັກງານ'
     },
   },
 
@@ -302,7 +309,8 @@ export default {
           .catch((err) => {
             console.log(err)
           })
-        await location.reload()
+        this.initialize()
+        this.dialogDelete = false
       } catch (error) {
         console.log(error)
       }
@@ -371,11 +379,13 @@ export default {
             })
             .catch((error) => console.log(error))
 
-          this.snackbar = true
-
           this.carouselInterval = setInterval(() => {
-            location.reload()
-          }, 1800)
+            this.snackbar = true
+          }, 800)
+
+          this.initialize()
+
+          this.snackbar = false
         } catch (err) {
           console.log(err)
         }
