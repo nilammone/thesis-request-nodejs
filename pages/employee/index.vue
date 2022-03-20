@@ -309,8 +309,20 @@ export default {
           .catch((err) => {
             console.log(err)
           })
+
+        // delete image
+        await this.$axios
+          .get(`deleteimage/${this.editedItem.emp_image}`)
+          .then((res) => {
+            console.log('Delete image completed!')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
         this.initialize()
         this.dialogDelete = false
+        // console.log(this.editedItem.emp_image)
       } catch (error) {
         console.log(error)
       }

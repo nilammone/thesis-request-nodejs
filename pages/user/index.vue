@@ -39,6 +39,7 @@
               >
                 <v-icon>mdi-account-plus</v-icon>
               </v-btn>
+              <a href="/register">ລົງທະບຽນຜູ້ໃຊ້ໃຫມ່</a>
             </template>
             <v-card>
               <v-card-title>
