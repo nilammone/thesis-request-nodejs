@@ -110,7 +110,10 @@
               <v-card-title>ທ່ານຕ້ອງການລົບ ແທ້ ຫລື ບໍ?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirm(editedItem.id)"
                   >ຕົກລົງ</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="closeDelete"
@@ -123,22 +126,19 @@
         </v-toolbar>
       </template>
       <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
+        {{ desserts.indexOf(item) + 1 }}
+      </template>
+      <template #[`item.emp_firstname`]="{ item }">
+        {{ item.emp_firstname }} {{ item.emp_lastname }}
       </template>
       <template #[`item.isAdmin`]="{ item }">
         {{ item.isAdmin === '1' ? 'Admin' : 'User' }}
       </template>
       <template #[`item.actions`]="{ item }">
-        <v-icon disabled small class="mr-2" @click="editItem(item)">
+        <!-- <v-icon disabled small class="mr-2" @click="editItem(item)">
           mdi-pencil
-        </v-icon>
-        <v-icon disabled small @click="deleteItem(item)"> mdi-delete </v-icon>
+        </v-icon> -->
+        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -174,7 +174,7 @@ export default {
         { text: 'ຊື່ຜູ້ໃຊ້', value: 'username', align: 'center' },
         { text: 'ອີເມວ', value: 'email', align: 'center' },
         // { text: 'Password', value: 'password', align: 'center' },
-        // { text: 'Employee_id', value: 'user_emp_id', align: 'center' },
+        { text: 'ຊື່ ແລະ ນາມສະກຸນ', value: 'emp_firstname', align: 'center' },
         { text: 'ສະຖານະ', value: 'isAdmin', align: 'center' },
         { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
@@ -220,9 +220,8 @@ export default {
     async initialize() {
       try {
         await axios
-          .get('http://localhost:8000/api/getalluser')
+          .get('http://localhost:8000/api/getdatajoinemployee')
           .then((response) => {
-            // console.log(response.data)
             this.desserts = response.data
           })
           .catch((error) => console.log(error))
@@ -243,9 +242,18 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm(id) {
+      try {
+        await this.$axios.get(`/deleteuser/${id}`).then((res) => {
+          console.log('Delete completed!')
+        })
+
+        this.initialize()
+
+        this.dialogDelete = false
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     close() {

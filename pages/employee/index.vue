@@ -133,15 +133,7 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <!-- <template #[`item.numlist`]="{ item }">
-        {{
-          desserts
-            .map(function (x) {
-              return x.id
-            })
-            .indexOf(item.id) + 1
-        }}
-      </template> -->
+
       <template #[`item.numlist`]="{ item }">
         {{ desserts.indexOf(item) + 1 }}
       </template>
@@ -158,9 +150,7 @@
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" disabled @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
@@ -348,12 +338,79 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        // Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        console.log('Im edit')
-        // console.log(this.desserts[0].id)
-      } else {
-        // this.desserts.push(this.editedItem)
+        if (this.editedItem.image === undefined) {
+          const sendresdata = {
+            emp_firstname: this.editedItem.emp_firstname,
+            emp_lastname: this.editedItem.emp_lastname,
+            emp_dept_id: this.editedItem.emp_dept_id,
+            emp_contact: this.editedItem.emp_contact,
+            emp_address: this.editedItem.emp_address,
+            emp_image: this.editedItem.emp_image,
+          }
 
+          try {
+            await this.$axios
+              .put(`/employees/${this.editedItem.emp_id}`, sendresdata)
+              .then((res) => {
+                console.log('edit completed!')
+              })
+
+            this.initialize()
+          } catch (err) {
+            console.log(err)
+          }
+        } else {
+          // for edit add new image
+          // delete image
+          await this.$axios
+            .get(`deleteimage/${this.editedItem.emp_image}`)
+            .then((res) => {
+              console.log('Delete image completed!')
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+
+          // s upload image
+          const fd = new FormData()
+          fd.append('file', this.editedItem.image, this.editedItem.image.name)
+
+          await this.$axios
+            .post('/upload', fd)
+            .then((res) => {
+              console.log('upload image completed!')
+              this.getupfilename = res.data.result
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          // e upload image
+
+          // cut name image
+          const subimagename = this.getupfilename.substr(7)
+
+          const sendresdata = {
+            emp_firstname: this.editedItem.emp_firstname,
+            emp_lastname: this.editedItem.emp_lastname,
+            emp_dept_id: this.editedItem.emp_dept_id,
+            emp_contact: this.editedItem.emp_contact,
+            emp_address: this.editedItem.emp_address,
+            emp_image: subimagename,
+          }
+
+          try {
+            await this.$axios
+              .put(`/employees/${this.editedItem.emp_id}`, sendresdata)
+              .then((res) => {
+                console.log('edit completed!')
+              })
+
+            this.initialize()
+          } catch (err) {
+            console.log(err)
+          }
+        }
+      } else {
         // s upload image
         const fd = new FormData()
         fd.append('file', this.editedItem.image, this.editedItem.image.name)

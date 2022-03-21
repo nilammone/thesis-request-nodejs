@@ -113,6 +113,30 @@
               <span class="focus-input100"></span>
             </div>
 
+            <div
+              class="wrap-input100 validate-input m-b-26"
+              data-validate="employee_name is required"
+            >
+              <span class="label-input100">ເລືອກສະຖານະ</span>
+              <!-- <input
+                class="input100"
+                type="text"
+                v-model="empname"
+                required
+                placeholder="Enter Employee Name"
+              /> -->
+              <select class="input100select" v-model="status">
+                <option
+                  v-for="itemstatus in itemsstatus"
+                  :key="itemstatus.id"
+                  :value="itemstatus.id"
+                >
+                  {{ itemstatus.text }}
+                </option>
+              </select>
+              <span class="focus-input100"></span>
+            </div>
+
             <!-- <div
               class="wrap-input100 validate-input m-b-18"
               data-validate="password_confirm is required"
@@ -218,10 +242,15 @@ export default {
     email: '',
     password: '',
     empname: '',
+    status: '',
     // password_confirm: '',
     valid: true,
     name: '',
     itemsemp: [],
+    itemsstatus: [
+      { id: 1, text: 'admin' },
+      { id: 2, text: 'user' },
+    ],
     nameRules: [
       (v) => !!v || 'Name is required',
       (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -246,7 +275,7 @@ export default {
       try {
         await axios
           .get(
-            `http://localhost:8000/api/register?username=${this.username}&email=${this.email}&password=${this.password}&user_emp_id=${this.empname}`
+            `http://localhost:8000/api/register?username=${this.username}&email=${this.email}&password=${this.password}&user_emp_id=${this.empname}&status=${this.status}`
           )
           .then((response) => {
             this.$router.push('/login')
