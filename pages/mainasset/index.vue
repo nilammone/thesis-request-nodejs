@@ -154,6 +154,13 @@
                         required
                       ></v-select>
                     </v-col>
+                    <v-col cols="12" sm="12" md="12">
+                      <v-textarea
+                        name="input-7-1"
+                        v-model="editedItem.asset_remark"
+                        label="ຫມາຍເຫດ"
+                      ></v-textarea>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -291,6 +298,11 @@ export default {
           align: 'center',
         },
         {
+          text: 'ຫມາຍເຫດ',
+          value: 'asset_remark',
+          align: 'center',
+        },
+        {
           text: 'ສະຖານະ',
           value: 'asset_status',
           align: 'center',
@@ -327,6 +339,7 @@ export default {
         asset_building_id: '',
         asset_user_id: '',
         asset_status: '',
+        asset_remark: '',
       },
       defaultItem: {
         asset_no: '',
@@ -340,13 +353,14 @@ export default {
         asset_building_id: '',
         asset_user_id: '',
         asset_status: '',
+        asset_remark: '',
       },
     }
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Add asset' : 'ແກ້ໄຂ ຂໍ້ມູນຊັບສິນ'
+      return this.editedIndex === -1 ? 'ເພີ່ມຂໍ້ມູນຊັບສິນ' : 'ແກ້ໄຂຂໍ້ມູນຊັບສິນ'
     },
   },
 
@@ -494,6 +508,7 @@ export default {
           asset_building_id: this.editedItem.asset_building_id,
           asset_user_id: this.$auth.user.id,
           asset_status: this.editedItem.asset_status,
+          asset_remark: this.editedItem.asset_remark,
         }
 
         try {
@@ -520,6 +535,7 @@ export default {
           asset_building_id: this.editedItem.asset_building_id,
           asset_user_id: this.$auth.user.id,
           asset_status: this.editedItem.asset_status,
+          asset_remark: this.editedItem.asset_remark,
         }
 
         try {
