@@ -225,7 +225,7 @@ export default {
       ],
       nameRules: [
         (v) => !!v || 'Asset_name is required',
-        (v) => v.length <= 30 || 'Asset_name must be less than 30 characters',
+        (v) => v.length <= 100 || 'Asset_name must be less than 100 characters',
       ],
       itemsgroup: [],
       itemstype: [],
@@ -346,9 +346,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1
-        ? 'ເພີ່ມ ຂໍ້ມູນຊັບສິນ'
-        : 'ແກ້ໄຂ ຂໍ້ມູນຊັບສິນ'
+      return this.editedIndex === -1 ? 'Add asset' : 'ແກ້ໄຂ ຂໍ້ມູນຊັບສິນ'
     },
   },
 
