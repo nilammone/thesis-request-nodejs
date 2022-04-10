@@ -12,7 +12,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Department</v-toolbar-title>
+          <!-- <v-toolbar-title>Department</v-toolbar-title> -->
           <v-spacer></v-spacer>
 
           <!-- s search -->

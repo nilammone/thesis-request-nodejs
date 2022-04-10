@@ -181,14 +181,14 @@
       </nuxt-link>
 
       <v-spacer />
-      <v-text-field
+      <!-- <v-text-field
         class="mt-7 d-none d-md-flex shrink"
         outlined
         dense
         label="ຄົ້ນຫາ"
         prepend-inner-icon="mdi-magnify"
         rounded
-      ></v-text-field>
+      ></v-text-field> -->
       <v-btn icon to="#">
         <v-icon>mdi-account</v-icon>
       </v-btn>

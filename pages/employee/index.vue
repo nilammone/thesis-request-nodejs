@@ -14,7 +14,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Employee</v-toolbar-title>
+          <!-- <v-toolbar-title>Employee</v-toolbar-title> -->
           <v-spacer></v-spacer>
 
           <!-- s search -->
