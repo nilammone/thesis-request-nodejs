@@ -114,6 +114,19 @@
       </v-list>
 
       <v-list>
+        <v-list-item to="/sponsor" router exactc>
+          <v-list-item-action>
+            <v-icon color="white"></v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title style="color: white"
+              >ຂໍ້ມູນຜູ້ສະຫນັບສະຫນູນ</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-list>
         <v-list-item router exactc>
           <v-list-item-action>
             <v-icon color="white"> mdi-chart-areaspline </v-icon>
@@ -146,7 +159,7 @@
         </v-list-item>
       </v-list>
       <v-list>
-        <v-list-item to="/changepassw" router exactc>
+        <v-list-item to="/changepassword" router exactc>
           <v-list-item-action>
             <v-icon color="white"> mdi-lock-reset </v-icon>
           </v-list-item-action>

@@ -125,6 +125,17 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-select
+                        v-model="editedItem.asset_sps_id"
+                        :items="itemssponsors"
+                        item-value="sps_id"
+                        item-text="sps_name"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="ຜູ້ສະຫນັບສະຫນູນ"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-select
                         v-model="editedItem.asset_room_id"
                         :items="itemsroom"
                         item-value="room_id"
@@ -237,6 +248,7 @@ export default {
       itemsgroup: [],
       itemstype: [],
       itemssuppiler: [],
+      itemssponsors: [],
       itemsroom: [],
       itemsbuild: [],
       itemsstatus: ['Active', 'In active'],
@@ -280,6 +292,11 @@ export default {
         {
           text: 'ຜູ້ສະຫນອງ',
           value: 'sp_name',
+          align: 'center',
+        },
+        {
+          text: 'ຜູ້ສະຫນັບສະຫນູນ',
+          value: 'sps_name',
           align: 'center',
         },
         {
@@ -335,6 +352,7 @@ export default {
         asset_startdate: '',
         asset_enddate: '',
         asset_sp_id: '',
+        asset_sps_id: '',
         asset_room_id: '',
         asset_building_id: '',
         asset_user_id: '',
@@ -349,6 +367,7 @@ export default {
         asset_startdate: '',
         asset_enddate: '',
         asset_sp_id: '',
+        asset_sps_id: '',
         asset_room_id: '',
         asset_building_id: '',
         asset_user_id: '',
@@ -378,6 +397,7 @@ export default {
     this.getDataGroupassets()
     // this.getDataTypeassets()
     this.getDataSuppilers()
+    this.getDataSponsors()
     this.getDataRooms()
     this.getDataBuildings()
   },
@@ -428,6 +448,16 @@ export default {
       try {
         await this.$axios.get('/suppilers').then((res) => {
           this.itemssuppiler = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getDataSponsors() {
+      try {
+        await this.$axios.get('/sponsors').then((res) => {
+          this.itemssponsors = res.data
         })
       } catch (err) {
         console.log(err)
@@ -504,6 +534,7 @@ export default {
           asset_startdate: this.editedItem.asset_startdate,
           asset_enddate: this.editedItem.asset_enddate,
           asset_sp_id: this.editedItem.asset_sp_id,
+          asset_sps_id: this.editedItem.asset_sps_id,
           asset_room_id: this.editedItem.asset_room_id,
           asset_building_id: this.editedItem.asset_building_id,
           asset_user_id: this.$auth.user.id,
@@ -531,6 +562,7 @@ export default {
           asset_startdate: this.editedItem.asset_startdate,
           asset_enddate: this.editedItem.asset_enddate,
           asset_sp_id: this.editedItem.asset_sp_id,
+          asset_sps_id: this.editedItem.asset_sps_id,
           asset_room_id: this.editedItem.asset_room_id,
           asset_building_id: this.editedItem.asset_building_id,
           asset_user_id: this.$auth.user.id,

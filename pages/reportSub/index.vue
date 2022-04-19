@@ -105,6 +105,11 @@ export default {
           align: 'center',
         },
         {
+          text: 'ຜູ້ສະຫນັບສະຫນູນ',
+          value: 'sps_name',
+          align: 'center',
+        },
+        {
           text: 'ຫ້ອງ',
           value: 'room_no',
           align: 'center',
