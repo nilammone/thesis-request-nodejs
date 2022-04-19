@@ -15,7 +15,11 @@
                   ຈຳນວນຊັບສິນທັງຫມົດ
                 </v-card-title></v-col
               >
-              <v-col md="4"><v-card-subtitle> 2,000 </v-card-subtitle></v-col>
+              <v-col md="4"
+                ><v-card-subtitle>
+                  {{ countAssets }}
+                </v-card-subtitle></v-col
+              >
             </v-row>
           </v-card>
         </v-col>
@@ -29,7 +33,11 @@
                   ຈຳນວນອາຄານທັງຫມົດ
                 </v-card-title></v-col
               >
-              <v-col md="4"><v-card-subtitle> 10 </v-card-subtitle></v-col>
+              <v-col md="4"
+                ><v-card-subtitle>
+                  {{ countBuildings }}
+                </v-card-subtitle></v-col
+              >
             </v-row>
           </v-card>
         </v-col>
@@ -43,7 +51,9 @@
                   ຈຳນວນຫ້ອງຣຽນທັງຫມົດ
                 </v-card-title></v-col
               >
-              <v-col md="4"><v-card-subtitle> 200 </v-card-subtitle></v-col>
+              <v-col md="4"
+                ><v-card-subtitle> {{ countRooms }} </v-card-subtitle></v-col
+              >
             </v-row>
           </v-card>
         </v-col>
@@ -57,7 +67,11 @@
                   ຈຳນວນຜູ້ສະຫນອງທັງຫມົດ
                 </v-card-title></v-col
               >
-              <v-col md="4"><v-card-subtitle> 10 </v-card-subtitle></v-col>
+              <v-col md="4"
+                ><v-card-subtitle>
+                  {{ countSuppilers }}
+                </v-card-subtitle></v-col
+              >
             </v-row>
           </v-card>
         </v-col>
@@ -67,7 +81,7 @@
     <!-- chart -->
     <div class="mt-5">
       <v-row>
-        <v-col md="4">
+        <v-col md="6">
           <v-card color="white">
             <apexchart
               width="500"
@@ -77,7 +91,7 @@
             ></apexchart>
           </v-card>
         </v-col>
-        <v-col md="4">
+        <!-- <v-col md="4">
           <v-card color="white">
             <apexchart
               width="500"
@@ -85,9 +99,9 @@
               :options="options2"
               :series="series2"
             ></apexchart> </v-card
-        ></v-col>
-        <v-col md="4">
-          <v-card color="white" class="pa-10">
+        ></v-col> -->
+        <v-col md="6">
+          <v-card color="white">
             <apexchart
               width="380"
               type="donut"
@@ -101,7 +115,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -110,18 +123,20 @@ export default {
           id: 'vuechart-example',
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+          categories: [2020, 2021, 2022],
         },
       },
       series: [
         {
-          name: 'series-1',
-          data: [30, 40, 45, 50, 49, 60, 70, 91],
+          name: 'ຈຳນວນຊັບສິນ',
+          data: [30, 40, 45],
         },
       ],
 
-      options3: {},
-      series3: [44, 55, 41, 17, 15],
+      options3: {
+        labels: ['ໂຕະ', 'ຄອມພິວເຕີ', 'ອຸປະກອນທົດລອງ'],
+      },
+      series3: [10, 5, 3],
 
       options2: {
         chart: {
@@ -137,7 +152,40 @@ export default {
           data: [30, 40, 45, 50, 49, 60, 70, 91],
         },
       ],
+
+      countAssets: null,
+      countBuildings: null,
+      countRooms: null,
+      countSuppilers: null,
     }
+  },
+
+  created() {
+    this.getDataCountAllAsset()
+  },
+
+  methods: {
+    async getDataCountAllAsset() {
+      try {
+        await this.$axios.get('/countAllAssets').then((res) => {
+          this.countAssets = res.data[0].totalAssets
+        })
+
+        await this.$axios.get('/countAllBuildings').then((res) => {
+          this.countBuildings = res.data[0].totalBuilding
+        })
+
+        await this.$axios.get('/countAllRooms').then((res) => {
+          this.countRooms = res.data[0].totalRooms
+        })
+
+        await this.$axios.get('/countAllSuppilers').then((res) => {
+          this.countSuppilers = res.data[0].totalSuppilers
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
   },
 }
 </script>
