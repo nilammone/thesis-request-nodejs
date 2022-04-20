@@ -47,55 +47,61 @@
             <template #[`item.numlist`]="{ item }">
               {{ desserts.indexOf(item) + 1 }}
             </template>
+            <template #[`item.actions`]="{ item }">
+              <v-btn color="info" @click="editItem(item)">ເບິ່ງລາຍລະອຽດ</v-btn>
+            </template>
           </v-data-table>
         </v-card>
         <!-- e table -->
 
         <h4 class="mt-4">ຈຳນວນຊັບສິນທັງຫມົດ: {{ sumtotalamount }}</h4>
       </v-col>
-      <!-- <v-col cols="12" md="3" class="ml-auto">
-        <v-navigation-drawer permanent>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title style="color: #1b8537">
-                ລາຍງານລວມ
-              </v-list-item-title>
-              <v-list-item-subtitle> ເລືອກລາຍງານຂອງທ່ານ </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-divider></v-divider>
-
-          <v-list dense nav>
-            <v-list-item link>
-              <v-list-item-content>
-                <v-list-item-title>ຊັບສິນທັງຫມົດ</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link>
-              <v-list-item-content>
-                <v-list-item-title>ອຸປະກອນ</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link>
-              <v-list-item-content>
-                <v-list-item-title>ອາຄານ</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link>
-              <v-list-item-content>
-                <v-list-item-title>ຫ້ອງ</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item link>
-              <v-list-item-content>
-                <v-list-item-title>ຜູ້ສະຫນອງ</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-navigation-drawer>
-      </v-col> -->
     </v-row>
+
+    <!-- s show details -->
+    <v-dialog v-if="getdatadialog" v-model="dialog" max-width="1000px">
+      <v-card>
+        <v-container>
+          <!-- <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">ລະຫັດຊັບສິນ</th>
+                  <th class="text-left">ຊື່ຊັບສິນ</th>
+                  <th class="text-left">ປະເພດຊັບສິນ</th>
+                  <th class="text-left">ຜູ້ສະຫນອງ</th>
+                  <th class="text-left">ຜູ້ສະຫນັບສະຫນູນ</th>
+                  <th class="text-left">ຫ້ອງ</th>
+                  <th class="text-left">ຕຶກ</th>
+                </tr>
+              </thead>
+              <tbody v-for="getdai in getdatadialog" :key="getdai.asset_id">
+                <tr>
+                  <td>{{ getdai.asset_no }}</td>
+                  <td>{{ getdai.asset_name }}</td>
+                  <td>{{ getdai.tass_name }}</td>
+                  <td>{{ getdai.sp_name }}</td>
+                  <td>{{ getdai.sps_name }}</td>
+                  <td>{{ getdai.room_no }}</td>
+                  <td>{{ getdai.bd_no }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table> -->
+
+          <!-- s add new -->
+          <v-data-table
+            dense
+            :headers="headers2"
+            :items="getdatadialog"
+            item-key="name"
+            class="elevation-1"
+          ></v-data-table>
+          <!-- e add new -->
+        </v-container>
+      </v-card>
+    </v-dialog>
+    <!-- e show details -->
   </div>
 </template>
 
@@ -106,6 +112,7 @@ export default {
       sdate: '',
       edate: '',
       search: '',
+      dialog: false,
       headers: [
         {
           text: 'ລຳດັບ',
@@ -116,8 +123,20 @@ export default {
         { text: 'ພະແນກ', value: 'v1deptname' },
         { text: 'ຫມວດຊັບສິນ', value: 'gass_name' },
         { text: 'ຈຳນວນ', value: 'total_amount' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
+      ],
+
+      headers2: [
+        { text: 'ລະຫັດຊັບສິນ', value: 'asset_no' },
+        { text: 'ຊື່ຊັບສິນ', value: 'asset_name' },
+        { text: 'ປະເພດຊັບສິນ', value: 'tass_name' },
+        { text: 'ຜູ້ສະຫນອງ', value: 'sp_name' },
+        { text: 'ຜູ້ສະຫນັບສະຫນູນ', value: 'sps_name' },
+        { text: 'ຫ້ອງ', value: 'room_no' },
+        { text: 'ຕຶກ', value: 'bd_no' },
       ],
       desserts: [],
+      getdatadialog: [],
     }
   },
 
@@ -137,7 +156,7 @@ export default {
   methods: {
     async getDataReportAllNotDate() {
       try {
-        this.$axios.get('/getdataReportAllNotDate').then((res) => {
+        await this.$axios.get('/getdataReportAllNotDate').then((res) => {
           this.desserts = res.data
         })
       } catch (err) {
@@ -147,7 +166,7 @@ export default {
 
     async searchFromDate() {
       try {
-        this.$axios
+        await this.$axios
           .get(`/getdataReportAll/${this.sdate}/${this.edate}`)
           .then((res) => {
             this.desserts = res.data
@@ -155,6 +174,21 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+
+    async editItem(item) {
+      await this.$axios
+        .get(
+          `/getdataJoinmoreActiveByUseridGroupid/${item.asset_user_id}/${item.asset_group_id}`
+        )
+        .then((res) => {
+          this.getdatadialog = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+      this.dialog = true
     },
   },
 }
