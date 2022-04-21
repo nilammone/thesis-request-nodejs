@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3 container">
+  <div class="mt-3 container-fluid">
     <h3 class="mytxt"><v-icon>mdi-file-multiple</v-icon> ລາຍງານຍ່ອຍ</h3>
     <hr class="primary" />
     <v-row class="mt-6">

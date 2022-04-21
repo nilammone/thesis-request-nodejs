@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3 container">
+  <div class="mt-3 container-fluid">
     <h3 class="mytxt">
       <v-icon>mdi-clipboard-text-multiple</v-icon> ຂໍ້ມູນຊັບສິນ
     </h3>
