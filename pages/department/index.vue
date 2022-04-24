@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 container">
-    <h3 class="mytxt"><v-icon>mdi-collage</v-icon> ຂໍ້ມູນພະແນກ</h3>
+    <h3 class="mytxt"><v-icon>mdi-collage</v-icon> ຂໍ້ມູນ ພາກວິຊາ/ພະແນກ</h3>
     <hr />
 
     <v-data-table
@@ -130,7 +130,7 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'ພະແນກ', value: 'dept_name', align: 'center' },
+        { text: 'ພາກວິຊາ/ພະແນກ', value: 'dept_name', align: 'center' },
         { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
       ],
       desserts: [],

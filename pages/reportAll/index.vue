@@ -7,7 +7,16 @@
         <v-card>
           <v-form>
             <v-row class="ml-6">
-              <v-col cols="12" md="4">
+              <v-col cols="12" md="3">
+                <v-select
+                  v-model="vdept"
+                  :items="itemsdept"
+                  item-value="dept_name"
+                  item-text="dept_name"
+                  label="ເລືອກ ພາກວິຊາ/ພະແນກ"
+                ></v-select>
+              </v-col>
+              <v-col cols="12" md="3">
                 <v-text-field
                   v-model="sdate"
                   type="date"
@@ -15,7 +24,7 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="4">
+              <v-col cols="12" md="3">
                 <v-text-field
                   v-model="edate"
                   type="date"
@@ -23,7 +32,7 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="4" class="mt-4">
+              <v-col cols="12" md="2" class="mt-4">
                 <v-btn color="success" @click="searchFromDate()">ຄົ້ນຫາ</v-btn>
               </v-col>
             </v-row>
@@ -109,10 +118,11 @@
 export default {
   data() {
     return {
-      sdate: '',
-      edate: '',
+      sdate: 'null',
+      edate: 'null',
       search: '',
       dialog: false,
+      vdept: 'null',
       headers: [
         {
           text: 'ລຳດັບ',
@@ -120,7 +130,7 @@ export default {
           sortable: false,
           value: 'numlist',
         },
-        { text: 'ພະແນກ', value: 'v1deptname' },
+        { text: 'ພາກວິຊາ/ພະແນກ', value: 'v1deptname' },
         { text: 'ຫມວດຊັບສິນ', value: 'gass_name' },
         { text: 'ຈຳນວນ', value: 'total_amount' },
         { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' },
@@ -137,6 +147,7 @@ export default {
       ],
       desserts: [],
       getdatadialog: [],
+      itemsdept: [],
     }
   },
 
@@ -152,6 +163,7 @@ export default {
 
   created() {
     this.getDataReportAllNotDate()
+    this.getDataDepartment()
   },
   methods: {
     async getDataReportAllNotDate() {
@@ -164,10 +176,21 @@ export default {
       }
     },
 
+    // det data department
+    async getDataDepartment() {
+      try {
+        await this.$axios.get('/departments').then((res) => {
+          this.itemsdept = res.data
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
     async searchFromDate() {
       try {
         await this.$axios
-          .get(`/getdataReportAll/${this.sdate}/${this.edate}`)
+          .get(`/getdataReportAll/${this.vdept}/${this.sdate}/${this.edate}`)
           .then((res) => {
             this.desserts = res.data
           })

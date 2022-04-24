@@ -235,19 +235,20 @@ export default {
       drawer: false,
       fixed: false,
       items: [
+        // {
+        //   icon: '',
+        //   title: 'ຂໍ້ມູນຜູ້ໃຊ້',
+        //   to: '/user',
+        // },
         {
           icon: '',
+          // title: 'ຂໍ້ມູນພະນັກງານ',
           title: 'ຂໍ້ມູນຜູ້ໃຊ້',
-          to: '/user',
-        },
-        {
-          icon: '',
-          title: 'ຂໍ້ມູນພະນັກງານ',
           to: '/employee',
         },
         {
           icon: '',
-          title: 'ຂໍ້ມູນພະແນກ',
+          title: 'ຂໍ້ມູນພາກວິຊາ/ພະແນກ',
           to: '/department',
         },
       ],

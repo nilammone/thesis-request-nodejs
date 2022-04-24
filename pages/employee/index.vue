@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3 container">
     <h3 class="mytxt">
-      <v-icon>mdi-account-box-multiple</v-icon> ຂໍ້ມູນພະນັກງານ
+      <v-icon>mdi-account-box-multiple</v-icon> ຂໍ້ມູນຜູ້ໃຊ້
     </h3>
     <hr />
 
@@ -201,6 +201,7 @@ export default {
           sortable: false,
           value: 'numlist',
         },
+        { text: 'ຢຸດເຊີເຂົ້າລະບົບ', value: 'email', align: 'center' },
         { text: 'ຊື່', value: 'emp_firstname', align: 'center' },
         { text: 'ນາມສະກຸນ', value: 'emp_lastname', align: 'center' },
         { text: 'ພະແນກ', value: 'dept_name', align: 'center' },
