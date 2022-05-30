@@ -10,8 +10,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'Asset System',
-    title: 'asset system',
+    titleTemplate: 'Compare Node and Java',
+    title: 'Compare node vs java',
     htmlAttrs: {
       lang: 'en',
     },
@@ -52,43 +52,42 @@ export default {
     '@nuxtjs/auth-next',
   ],
 
-  router: {
-    middleware: ['auth'],
-  },
+  // router: {
+  //   middleware: ['auth'],
+  // },
 
   axios: {
-    baseURL: 'http://localhost:8000/api',
-    // Credential: true,
+    // baseURL: 'http://localhost:8000/api',
     credentials: true,
   },
 
-  auth: {
-    strategies: {
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        url: 'http://localhost:8000',
-        endpoints: {
-          login: {
-            url: '/api/login',
-          },
-          logout: {
-            url: '/api/logout',
-          },
-          user: {
-            url: '/api/user',
-          },
-        },
-        user: {
-          property: false,
-        },
-      },
-    },
-    redirect: {
-      login: '/login',
-      logout: '/',
-      home: '/',
-    },
-  },
+  // auth: {
+  //   strategies: {
+  //     laravelSanctum: {
+  //       provider: 'laravel/sanctum',
+  //       url: 'http://localhost:8000',
+  //       endpoints: {
+  //         login: {
+  //           url: '/api/login',
+  //         },
+  //         logout: {
+  //           url: '/api/logout',
+  //         },
+  //         user: {
+  //           url: '/api/user',
+  //         },
+  //       },
+  //       user: {
+  //         property: false,
+  //       },
+  //     },
+  //   },
+  //   redirect: {
+  //     login: '/login',
+  //     logout: '/',
+  //     home: '/',
+  //   },
+  // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
