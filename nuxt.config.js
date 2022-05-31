@@ -52,6 +52,10 @@ export default {
     '@nuxtjs/auth-next',
   ],
 
+  router: {
+    base: '/Compare-NodeJs-Java',
+  },
+
   // router: {
   //   middleware: ['auth'],
   // },
