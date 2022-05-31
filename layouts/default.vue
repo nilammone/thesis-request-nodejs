@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <span> Compare Node Js Vs Spring Boot Java </span>
+      <span> Compare Node Js Vs Java Spring Boot </span>
 
       <v-spacer />
     </v-app-bar>
