@@ -58,7 +58,7 @@ export default {
 
   axios: {
     // baseURL: 'http://localhost:8000/api',
-    credentials: true,
+    // credentials: true,
   },
 
   // auth: {
