@@ -62,7 +62,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertAdd" dense text type="success" class="mt-6">
-            Add {{ numRecord }} records Completed!
+            {{ numRecord }} Records Inserted Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
@@ -100,7 +100,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertGet" dense text type="success" class="mt-6">
-            Get {{ numRecordGet }} records Completed!
+            {{ numRecord }} Records Selected Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
@@ -120,7 +120,7 @@
             <form>
               <v-text-field
                 v-model="first_name_update"
-                label="First_name to update"
+                label="First_name"
                 required
               ></v-text-field>
               <!-- s btn -->
@@ -145,7 +145,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertUpdate" dense text type="success" class="mt-6">
-            Update {{ numRecordUpdate }} records Completed!
+            {{ numRecord }} Records Updated Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
@@ -155,7 +155,7 @@
     <!-- e update records -->
 
     <!-- s delete records -->
-    <div>
+    <div style="margin-bottom: 500px">
       <h3 class="text-center mymt">Delete Data (Node Js)</h3>
       <hr />
       <v-row>
@@ -185,7 +185,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertDelete" dense text type="success" class="mt-6">
-            Delete {{ numRecordDelete }} records Completed!
+            {{ numRecord }} Records Deleted Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
