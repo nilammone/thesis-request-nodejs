@@ -100,7 +100,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertGet" dense text type="success" class="mt-6">
-            {{ numRecord }} Records Selected Successfully!
+            {{ numRecordGet }} Records Selected Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
@@ -145,7 +145,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertUpdate" dense text type="success" class="mt-6">
-            {{ numRecord }} Records Updated Successfully!
+            {{ numRecordUpdate }} Records Updated Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
@@ -185,7 +185,7 @@
 
           <!-- s alert add -->
           <v-alert v-if="chalertDelete" dense text type="success" class="mt-6">
-            {{ numRecord }} Records Deleted Successfully!
+            {{ numRecordDelete }} Records Deleted Successfully!
           </v-alert>
           <!-- e alert add -->
         </v-col>
